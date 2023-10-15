@@ -1,6 +1,4 @@
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
 from django.urls import re_path
 from . import views
 
@@ -25,12 +23,8 @@ urlpatterns=[
     path('edit-profile/<str:pk>', views.edit_profile, name = 'edit-profile'),
     path('delete-file/<str:pk>', views.deletefile, name = 'deletefile'),
     path('verified/', views.success, name = 'success'),
-    path('searched-files/', views.search_files, name='search-files'),
-    re_path(r'^media/files/(?P<path>.+)/(?P<filename>[^/]+)$', views.filesview, name='file-view'),
-    re_path(r'^media/files/(?P<path>.*)$', views.filestructure, name='file-system'),
-    re_path(r'media/files/', views.filestructure, name='file-start'),
+    path('searched-files.html/', views.search_files, name = 'search-files'),
+    re_path(r'^media/files/(?P<path>.+)/(?P<filename>[^/]+\.[^/]+)$', views.filesview, name = 'file-view'),
+    re_path(r'^media/files/(?P<path>.*)$', views.filestructure, name = 'file-system'),
+    re_path(r'media/files/', views.filestructure, name = 'file-start'),
 ]
-
-if settings.DEBUG:
-    # Serve media files during development
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
