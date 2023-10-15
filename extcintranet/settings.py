@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-zf%+l)xj$!s*r()@oqa)gm^hm6cs*94tndfkdtaxeonhro6md-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['uditi.pythonanywhere.com', 'killme.pythonanywhere.com', '127.0.0.1']
+ALLOWED_HOSTS = ['uditi.pythonanywhere.com', 'killme.pythonanywhere.com']
 
 
 # Application definition
@@ -115,10 +115,7 @@ STATICFILES_DIRS= [
     BASE_DIR / 'static'
 ]
 
-MEDIA_ROOT = [
-    BASE_DIR / 'media',
-    BASE_DIR/ 'media' / 'files',
-]
+MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
