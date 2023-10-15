@@ -85,7 +85,7 @@ def delete_subfolders(sender, instance, **kwargs):
 
 def generate_upload_path(instance,name):
     directory = instance.directory
-    return f'{directory}\{name}'
+    return f'{directory}{name}'
 
 class File(models.Model):
     def __str__(self):
