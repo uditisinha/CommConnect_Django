@@ -381,7 +381,7 @@ def create_committee(request):
         if form.is_valid():
             committee = form.save(commit=False)
             folder_name = committee.name
-            path = str(settings.MEDIA_ROOT) + '\\files/' + f'{folder_name}/'
+            path = str(settings.MEDIA_ROOT) + '/files/' + f'{folder_name}/'
             os.makedirs(path)
             new_folder = Folder()
             new_folder.name = folder_name
