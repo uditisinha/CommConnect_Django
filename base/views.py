@@ -565,8 +565,11 @@ def filestructure(request,path=''):
 
     if request.method == "POST" and 'second_post' in request.POST.keys():
         form2 = FileForm(request.POST,request.FILES)
-        form2.save()
-        return redirect(current_url)
+        if(form2.is_valid()):
+            form2.save()
+            return redirect(current_url)
+        else:
+            print("NOT VALID")
     
     files_context=[]
 
