@@ -16,6 +16,7 @@ from django.core.mail import EmailMessage
 import uuid
 from django.core.mail import send_mail
 import os
+import sys
 
 
 # Create your views here.
@@ -498,6 +499,7 @@ def filestructure(request,path=''):
     else:
         this_is_first_folder = '1'
     path_to = os.path.join(str(settings.MEDIA_ROOT),updated_access_parameters)
+    mediaroot = settings.MEDIA_ROOT
     path_to_2 = None
     if(path_to[-1]!='/'):
         path_to_2 = path_to+'/'
@@ -567,6 +569,7 @@ def filestructure(request,path=''):
         form2 = FileForm(request.POST,request.FILES)
         if(form2.is_valid()):
             form2.save()
+            print(sys.path)
             return redirect(current_url)
         else:
             print("NOT VALID")
@@ -588,6 +591,7 @@ def filestructure(request,path=''):
         'file_paths':file_paths,
         'current_url':current_url,
         'back_url':back_url,
+        'mediaroot': mediaroot,
         'committee_names':committee_names,
     }
     return render(request,'base/file_structure.html',context)
