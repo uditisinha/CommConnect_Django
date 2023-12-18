@@ -499,6 +499,7 @@ def filestructure(request,path=''):
     else:
         this_is_first_folder = '1'
     path_to = os.path.join(str(settings.MEDIA_ROOT),updated_access_parameters)
+    print('hi', updated_access_parameters)
     mediaroot = settings.MEDIA_ROOT
     path_to_2 = None
     if(path_to[-1]!='/'):
