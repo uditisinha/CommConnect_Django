@@ -79,12 +79,8 @@ WSGI_APPLICATION = 'extcintranet.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresqp_psycopg2',
-        'NAME': 'project_database',
-        'USER': 'uditi',
-        'PASSWORD': 'pass',
-        'HOST': 'killme.pythonanywhere.com',
-        'PORT': ''
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
