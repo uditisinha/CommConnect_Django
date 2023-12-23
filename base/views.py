@@ -499,10 +499,8 @@ def filestructure(request,path=''):
         this_is_first_folder = '0'
     else:
         this_is_first_folder = '1'
-    
-    storage = FileSystemStorage(location=settings.MEDIA_ROOT)
-    path_to = storage.path(updated_access_parameters)
-
+        
+    path_to = os.path.join(str(settings.MEDIA_ROOT),updated_access_parameters)
     print('hi', updated_access_parameters)
     mediaroot = settings.MEDIA_ROOT
     path_to_2 = None
@@ -540,15 +538,21 @@ def filestructure(request,path=''):
     if request.method == "POST" and 'first_post' in request.POST.keys():
         form = FolderForm(request.POST)
         if not form.is_valid():
+            # Create a mutable copy of request.POST
             post_data = request.POST.copy()
+            
+            # Clean and modify the form data in the copied dictionary
             post_data['parent_directory'] = os.path.join(post_data['parent_directory'], post_data['name'] + '/')
+            
+            # Reconstruct the form with the modified data
             form = FolderForm(post_data)
-
+            
+            # Re-validate the modified form
             if form.is_valid():
                 directory = form.save(commit=False)
                 os.makedirs(directory.parent_directory)
                 directory.save()
-
+                
                 return redirect(current_url)
             else:
                 print(form.errors)
