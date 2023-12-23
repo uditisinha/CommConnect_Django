@@ -666,10 +666,10 @@
     </div>
   
     <div class = "file_display_wrapper">
-      {{ mediaroot }}
     </div>
     
     <div class="file_display">
+      {{files_to_access}}
       {% for f in files_context %}
       <div class="file_card {{f.2}}">
         <a href="{{f.1}}" class = "name_file">{{f.0.name}}</a>
