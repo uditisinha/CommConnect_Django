@@ -490,8 +490,9 @@ def filestructure(request,path=''):
     else:
         print('invalid')
         back_url = None
-    updated_access_parameters = current_url.rsplit("media/", 1)[1].rsplit("?q", 1)[0]
-
+    updated_access_parameters = current_url.rsplit("media/",1)[1]
+    updated_access_parameters = updated_access_parameters.rsplit("?q",1)[0]
+    print(updated_access_parameters)
     checker_for_main_file = current_url.rsplit("media/files/",1)[1]
     updated_access_parameters = unquote(updated_access_parameters)
     if(len(checker_for_main_file)>0):
@@ -499,8 +500,10 @@ def filestructure(request,path=''):
     else:
         this_is_first_folder = '1'
     
-    path_to = os.path.join(settings.MEDIA_ROOT, updated_access_parameters)
-    
+    storage = FileSystemStorage(location=settings.MEDIA_ROOT)
+    path_to = storage.path(updated_access_parameters)
+
+    print('hi', updated_access_parameters)
     mediaroot = settings.MEDIA_ROOT
     path_to_2 = None
     if(path_to[-1]!='/'):
