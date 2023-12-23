@@ -17,6 +17,7 @@ import uuid
 from django.core.mail import send_mail
 import os
 import sys
+from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
@@ -489,17 +490,17 @@ def filestructure(request,path=''):
     else:
         print('invalid')
         back_url = None
-    updated_access_parameters = current_url.rsplit("media/",1)[1]
-    updated_access_parameters = updated_access_parameters.rsplit("?q",1)[0]
-    print(updated_access_parameters)
+    updated_access_parameters = current_url.rsplit("media/", 1)[1].rsplit("?q", 1)[0]
+
     checker_for_main_file = current_url.rsplit("media/files/",1)[1]
     updated_access_parameters = unquote(updated_access_parameters)
     if(len(checker_for_main_file)>0):
         this_is_first_folder = '0'
     else:
         this_is_first_folder = '1'
-    path_to = os.path.join(str(settings.MEDIA_ROOT),updated_access_parameters)
-    print('hi', updated_access_parameters)
+    
+    path_to = os.path.join(settings.MEDIA_ROOT, updated_access_parameters)
+    
     mediaroot = settings.MEDIA_ROOT
     path_to_2 = None
     if(path_to[-1]!='/'):
@@ -536,21 +537,15 @@ def filestructure(request,path=''):
     if request.method == "POST" and 'first_post' in request.POST.keys():
         form = FolderForm(request.POST)
         if not form.is_valid():
-            # Create a mutable copy of request.POST
             post_data = request.POST.copy()
-            
-            # Clean and modify the form data in the copied dictionary
             post_data['parent_directory'] = os.path.join(post_data['parent_directory'], post_data['name'] + '/')
-            
-            # Reconstruct the form with the modified data
             form = FolderForm(post_data)
-            
-            # Re-validate the modified form
+
             if form.is_valid():
                 directory = form.save(commit=False)
                 os.makedirs(directory.parent_directory)
                 directory.save()
-                
+
                 return redirect(current_url)
             else:
                 print(form.errors)
