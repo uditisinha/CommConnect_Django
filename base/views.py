@@ -345,7 +345,7 @@ def comms(request, pk):
     path = str(settings.MEDIA_ROOT) + '/files/' + committee.name + '/'
     files = []
     for item in os.listdir(path):
-        item_path = os.path.safe_join(path, item)
+        item_path = safe_join(path, item)
         if os.path.isdir(item_path):
             item_url = str(settings.MEDIA_URL) + 'files/' + committee.name + '/' + item + '/'
             files.append([item,item_url])
@@ -401,7 +401,7 @@ def create_committee(request):
 
 @login_required(login_url = 'login')
 def filesview(request,path='',filename=''):
-    file_path = os.path.safe_join(settings.MEDIA_ROOT, 'files', path, filename)
+    file_path = safe_join(settings.MEDIA_ROOT, 'files', path, filename)
     try:
         with open(file_path, 'rb') as file:
             response = FileResponse(open(file_path, 'rb'), content_type='application/octet-stream')
@@ -500,7 +500,7 @@ def filestructure(request,path=''):
     else:
         this_is_first_folder = '1'
         
-    path_to = os.path.safe_join(str(settings.MEDIA_ROOT),updated_access_parameters)
+    path_to = safe_join(str(settings.MEDIA_ROOT),updated_access_parameters)
     print('hi', updated_access_parameters)
     mediaroot = settings.MEDIA_ROOT
     path_to_2 = None
@@ -525,7 +525,7 @@ def filestructure(request,path=''):
         i+=1
     files = []
     for item in os.listdir(path_to):
-        item_path = os.path.safe_join(path_to, item)
+        item_path = safe_join(path_to, item)
         if os.path.isdir(item_path):
             files.append(item)
         # else:
@@ -542,7 +542,7 @@ def filestructure(request,path=''):
             post_data = request.POST.copy()
             
             # Clean and modify the form data in the copied dictionary
-            post_data['parent_directory'] = os.path.safe_join(post_data['parent_directory'], post_data['name'] + '/')
+            post_data['parent_directory'] = safe_join(post_data['parent_directory'], post_data['name'] + '/')
             
             # Reconstruct the form with the modified data
             form = FolderForm(post_data)
@@ -561,7 +561,7 @@ def filestructure(request,path=''):
             if form.is_valid():
                 directory = form.save(commit=False)
                 directory_name = directory.name + '/'
-                directory.parent_directory = os.path.safe_join(directory.parent_directory, directory_name)
+                directory.parent_directory = safe_join(directory.parent_directory, directory_name)
                 os.makedirs(directory.parent_directory)
                 directory.save()
                 return redirect(current_url)
