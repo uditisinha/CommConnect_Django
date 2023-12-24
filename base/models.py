@@ -92,7 +92,7 @@ class File(models.Model):
         return os.path.basename(self.file.name)
     
     name = models.CharField(max_length=500,null=False)
-    file = models.FileField(max_length=20000,upload_to=generate_upload_path)
+    file = models.FileField(max_length=20000,upload_to='cat/')
     keywords = models.TextField(max_length=1000,null=True,blank=True)
     directory = models.CharField(max_length=10000)
     committee = models.ForeignKey(Committees,on_delete=models.CASCADE,null=True,blank=True)
