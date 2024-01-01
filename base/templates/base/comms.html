@@ -5,6 +5,8 @@
 <html>
 
     <head>
+        
+    <title>Committee Details</title>
 
         <style>
 
@@ -153,7 +155,7 @@
     {% if request.user.id == committee.convener.id or request.user.is_superuser %}
     <div class="edit_button">
         <a href="{% url 'edit_committee' committee.id %}">
-            <input type="button" value="Edit" class="edit_committees">
+            <input type="button" value="Edit Details" class="edit_committees">
         </a>
     </div>
     {% endif %}
