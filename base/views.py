@@ -129,7 +129,7 @@ def forgot_password(request):
 
 def send_forget_password_mail(email, token):
     subject = "Your forgot password link"
-    message = f"http://127.0.0.1:8000/change_password/{token}"
+    message = f"http://commconnect.pythonanywhere.com/change_password/{token}"
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)
@@ -137,7 +137,7 @@ def send_forget_password_mail(email, token):
 
 def send_change_password_mail(email, token):
     subject = "Your change password link"
-    message = f"http://127.0.0.1:8000/change_password/{token}"
+    message = f"http://commconnect.pythonanywhere.com/change_password/{token}"
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)
@@ -271,7 +271,7 @@ def sending_token(request):
 
 def send_mail_for_registration(email, token):
     subject = "Your verification mail for CommConnect"
-    message = f"Please click on this link to verify your email and Log in - https://commconnect.onrender.com//verify/{token}"
+    message = f"Please click on this link to verify your email and Log in - https://commconnect.pythonanywhere.com///verify/{token}"
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)
