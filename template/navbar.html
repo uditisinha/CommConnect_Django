@@ -14,7 +14,7 @@
                     <a href = "{% url 'committees_list' %}" class = "navlinks">All Committees</a>
                     <a href="{% url 'file-start' %}" class="navlinks">My Committees</a>
 
-                    <div class="dropdown">
+                    <div class="dropdown-main">
                         {% if request.user.avatar %}
                             <!-- Render the user's avatar if it exists -->
                             <img src="{{ request.user.avatar.url }}" class="profile-avatar" alt="User Avatar">
