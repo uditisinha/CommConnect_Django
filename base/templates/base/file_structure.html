@@ -333,6 +333,11 @@
         overflow-y: scroll;
       }
 
+      .folders_list p{
+        text-align: center;
+        margin-top: 3vh;
+      }
+
       .folder_title{
         font-size: 3vh;
         text-align: center;
@@ -467,7 +472,6 @@
         flex-wrap: wrap;
         justify-content: flex-start;
         margin-left: 47.4vh;
-        margin-top: 2vh;
         margin-bottom: 10vh;
       }
 
@@ -547,7 +551,7 @@
         text-align: center;
         margin: 0;
         margin-top: 9vh;
-        margin-right: 105.5vh;
+        margin-right: 115vh;
       }
 
       .add_files_button:hover{
@@ -607,6 +611,7 @@
       .file_display_wrapper{
         position: fixed;
         z-index: -9999;
+        text-align: center;
         width: 35%;
         height: 70vh;
         font-weight: bold;
@@ -616,6 +621,27 @@
         opacity: 0.2;
         background-repeat: no-repeat;
         background-size: contain;
+      }
+      .committee_name {
+        width: 50vw;
+        margin: 0;
+        text-align: center;
+        margin-left: 68vh;
+        font-size: 4vh;
+        font-weight: bold;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Adjust the values for the shadow as needed */
+      }
+
+
+      .number_of_files{
+        margin-left: 48vh;
+        margin-top: 2vh;
+        font-size: 3vh;
+      }
+
+      .number_of_files p{
+        margin: 0;
+        padding: 0;
       }
 
     </style>
@@ -631,11 +657,15 @@
       <hr style = "width: 30vh; margin-left: 5vh; margin-bottom: 2vh;">
 
         <div class = "folders_list">
-          {% for dir in files %}
-          <div class = "folder_line">
-            <a href="{{current_url}}{{dir}}/" class = "folder_link"><img src="/media/images/files.png" class="folder_png"><div class = "folder_name">{{dir}}</a></div>
-          </div>
-          {% endfor %}
+          {% if files %}
+            {% for dir in files %}
+            <div class = "folder_line">
+              <a href="{{current_url}}{{dir}}/" class = "folder_link"><img src="/media/images/files.png" class="folder_png"><div class = "folder_name">{{dir}}</a></div>
+            </div>
+            {% endfor %}
+          {% else %}
+           <p>No Folders Yet...</p>
+          {% endif %}
         </div>
 
       <hr style = "width: 30vh; margin-left: 5vh; margin-top: 2vh;">
@@ -668,19 +698,34 @@
   
     <div class = "file_display_wrapper">
     </div>
+
+    <div class="committee_name">
+      <p>
+        {{cleaned_checker_for_main_file}}
+      </p>
+    </div>
+
+    <div class="number_of_files">
+      {% if plural == True %}
+        <p>{{ no_of_files }} files</p>
+      {% else %}
+        <p>{{ no_of_files }} file</p>
+      {% endif %}
+    </div>
     
     <div class="file_display">
-      {% for f in files_context %}
-      <div class="file_card {{f.2}}">
-        <a href="{{f.1}}" class = "name_file">{{f.0.name}}</a>
-        <hr style = "border-top: 0.2vh solid black; width: 30vh; margin-left: 5vh; margin-top: 1vh;">
-        <p class = "source">Source: {{f.0}}</p>
-        {% if check2 is not 1 or request.user.is_superuser %}
-        <a href="{% url 'deletefile' f.0.id|urlencode%}" class = "delete_file">Delete file</a>
-        {% endif %}
-      </div>
-      {% endfor %}
+          {% for f in files_context %}
+              <div class="file_card {{ f.2 }}">
+                  <a href="{{ f.1 }}" class="name_file">{{ f.0.name }}</a>
+                  <hr style="border-top: 0.2vh solid black; width: 30vh; margin-left: 5vh; margin-top: 1vh;">
+                  <p class="source">Source: {{ f.0 }}</p>
+                  {% if check2 is not 1 or request.user.is_superuser %}
+                      <a href="{% url 'deletefile' f.0.id|urlencode %}" class="delete_file">Delete file</a>
+                  {% endif %}
+              </div>
+          {% endfor %}
   </div>
+  
     
 {% if check2 is not 1 or request.user.is_superuser %}
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top: 8vh;">

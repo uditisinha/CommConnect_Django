@@ -251,6 +251,16 @@
             margin-top: 5vh;
         }
 
+        .carousel-control-prev img{
+          height: 4.5vh;
+          width: 4vh;
+        }
+
+        .carousel-control-next img{
+          height: 4.5vh;
+          width: 4vh;
+        }
+
   </style>
 </head>
 
@@ -320,14 +330,14 @@
               </div>
               {% endif %}
 
-              {% if user in committee.members.all %}
+              {% if user in committee.members.all and not user == committee.convener and not user in committee.staff.all %}
               <div class = "position">
                 <h4>Position:</h4>
                 <h1 class = "position_inner">Member</h1>
               </div>
               {% endif %}
 
-              {% if user in committee.staff.all %}
+              {% if user in committee.staff.all and not user == committee.convener and not user in committee.members.all %}
               <div class = "position">
                 <h4>Position:</h4>
                 <h1 class = "position_inner">Staff</h1>
@@ -342,13 +352,13 @@
       </div>
             
       <button class = "carousel-control-prev" type = "button" data-bs-target = "#carouselExampleIndicators" data-bs-slide = "prev">
-          <span class = "carousel-control-prev-icon" aria-hidden="true"></span>
+        <img src="../media/images/prev.png" alt="Next">
           <span class = "visually-hidden">Previous</span>
       </button>
-      <button class = "carousel-control-next" type = "button" data-bs-target="#carouselExampleIndicators" data-bs-slide = "next">
-          <span class = "carousel-control-next-icon" aria-hidden = "true"></span>
-          <span class = "visually-hidden">Next</span>
-      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <img src="../media/images/next.png" alt="Next">
+        <span class="visually-hidden">Next</span>
+      </button>      
   </div>
 
 </div>

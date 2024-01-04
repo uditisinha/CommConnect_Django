@@ -107,33 +107,33 @@
 <h1 style = "font-size: 6vh; text-align: center; margin-top: 15vh;">Search results</h1>
 
 <div class="file_display">
-    {% for f in files_context %}
-  <div class = "file_card">
-    <a class = "name_file" href="{{f.1}}">{{f.0.name}}</a>
+  {% if files_context %}
+      {% for f in files_context %}
+          <div class="file_card">
+              <a class="name_file" href="{{ f.1 }}">{{ f.0.name }}</a>
 
-    
-  <hr style = "border-top: 0.2vh solid #4d4c4c; width: 40vh; margin-left: 10vh; margin-top: 2vh;">
+              <hr style="border-top: 0.2vh solid #4d4c4c; width: 40vh; margin-left: 10vh; margin-top: 2vh;">
 
-<div class = "card_content">
-    <div class = "location">
-        <label style = "font-size: 2.5vh;">Committee:</label>
-        <p class = "path">{{f.0.committee}}</p>
-    </div>
+              <div class="card_content">
+                  <div class="location">
+                      <label style="font-size: 2.5vh;">Committee:</label>
+                      <p class="path">{{ f.0.committee }}</p>
+                  </div>
 
-    <div class = "location">
-        <label style = "font-size: 2.5vh;">Path:</label>
-        <p class = "path">{{f.1}}</p>
-    </div>
-</div>
+                  <div class="location">
+                      <label style="font-size: 2.5vh;">Path:</label>
+                      <p class="path">{{ f.1 }}</p>
+                  </div>
+              </div>
 
-  {% if f.2 %}
-    <a class = "delete_file" href="{% url 'deletefile' f.0.id|urlencode%}">Delete</a>
+              {% if f.2 %}
+                  <a class="delete_file" href="{% url 'deletefile' f.0.id|urlencode %}">Delete</a>
+              {% endif %}
+          </div>
+          <br>
+      {% endfor %}
+  {% else %}
+      <p>No file found, consider using a keyword to describe the file you are looking for.</p>
   {% endif %}
-  </div>
-  <br>
-  {% endfor %}  
-  </div>
-
-
 </div>
 {% endblock content %}

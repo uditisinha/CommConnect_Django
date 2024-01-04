@@ -492,16 +492,18 @@ def filestructure(request,path=''):
         back_url = None
     updated_access_parameters = current_url.rsplit("media/",1)[1]
     updated_access_parameters = updated_access_parameters.rsplit("?q",1)[0]
-    print(updated_access_parameters)
     checker_for_main_file = current_url.rsplit("media/files/",1)[1]
     updated_access_parameters = unquote(updated_access_parameters)
+
+    checker_for_main_file = current_url.rsplit("media/files/", 1)[1]
+    cleaned_checker_for_main_file = checker_for_main_file.replace("/", "").replace("%20", " ")
+
     if(len(checker_for_main_file)>0):
         this_is_first_folder = '0'
     else:
         this_is_first_folder = '1'
         
     path_to = os.path.join(str(settings.MEDIA_ROOT),updated_access_parameters)
-    print('hi', updated_access_parameters)
     mediaroot = settings.MEDIA_ROOT
     path_to_2 = None
     if(path_to[-1]!='/'):
@@ -579,11 +581,23 @@ def filestructure(request,path=''):
     
     files_context=[]
 
+
+
     for i in range(len(file_paths)):
         files_context.append([files_to_access[i],file_paths[i],file_extensions[i]])
+    
+    no_of_files = len(files_context)
+
+    if no_of_files == 1 or no_of_files == 0:
+        plural = False
+    
+    else:
+        plural = True
 
     context = {
         'files_context':files_context, 
+        'no_of_files':no_of_files, 
+        'plural': plural,
         'directory':path_to,
         'form':form,
         'check2':flag2,
@@ -596,5 +610,6 @@ def filestructure(request,path=''):
         'back_url':back_url,
         'mediaroot': mediaroot,
         'committee_names':committee_names,
+        'cleaned_checker_for_main_file': cleaned_checker_for_main_file,
     }
     return render(request,'base/file_structure.html',context)
