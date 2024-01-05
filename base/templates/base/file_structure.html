@@ -622,16 +622,33 @@
         background-repeat: no-repeat;
         background-size: contain;
       }
-      .committee_name {
-        width: 50vw;
+
+      .committee_name_wrapper {
+        max-width: 50vw;
         margin: 0;
         text-align: center;
         margin-left: 68vh;
-        font-size: 4vh;
+        font-size: 3vh;
         font-weight: bold;
         text-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Adjust the values for the shadow as needed */
       }
 
+      .committee_name{
+        width: fit-content;
+        margin: auto;
+        background-color: #d3d1d1;
+        border-radius: 1vh;
+        border-style: solid;
+        border-color: black;
+        border-width: 1px;
+        box-sizing: border-box; /* Add this to include border in the box sizing */
+      }
+
+      .committee_name_wrapper p{
+        padding: 2vh;
+        margin: 0;
+      }
+      
 
       .number_of_files{
         margin-left: 48vh;
@@ -699,10 +716,12 @@
     <div class = "file_display_wrapper">
     </div>
 
-    <div class="committee_name">
-      <p>
-        {{cleaned_checker_for_main_file}}
-      </p>
+    <div class="committee_name_wrapper">
+      <div class="committee_name">
+        <p>
+          {{cleaned_checker_for_main_file}}
+        </p>
+      </div>
     </div>
 
     <div class="number_of_files">

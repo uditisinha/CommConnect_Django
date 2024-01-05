@@ -18,7 +18,7 @@ from django.core.mail import send_mail
 import os
 import sys
 from django.core.files.storage import FileSystemStorage
-
+from urllib.parse import unquote
 
 # Create your views here.
 @login_required(login_url = 'login')
@@ -494,9 +494,16 @@ def filestructure(request,path=''):
     updated_access_parameters = updated_access_parameters.rsplit("?q",1)[0]
     checker_for_main_file = current_url.rsplit("media/files/",1)[1]
     updated_access_parameters = unquote(updated_access_parameters)
+    cleaned_checker_for_main_file = checker_for_main_file.replace("%20", " ")
 
-    checker_for_main_file = current_url.rsplit("media/files/", 1)[1]
-    cleaned_checker_for_main_file = checker_for_main_file.replace("/", "").replace("%20", " ")
+    try:
+        cleaned_checker_for_main_file = checker_for_main_file.replace("%20", " ")
+        cleaned_checker_for_main_file = cleaned_checker_for_main_file.split("/")[0]
+    except IndexError:
+            cleaned_checker_for_main_file = checker_for_main_file.replace("/", "").replace("%20", " ")
+
+
+
 
     if(len(checker_for_main_file)>0):
         this_is_first_folder = '0'
