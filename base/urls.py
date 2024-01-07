@@ -22,6 +22,7 @@ urlpatterns=[
     path('profile/<str:pk>', views.profile, name = 'profile'),
     path('edit-profile/<str:pk>', views.edit_profile, name = 'edit-profile'),
     path('delete-file/<str:pk>', views.deletefile, name = 'deletefile'),
+    path('verified/', views.success, name = 'success'),
     path('searched-files.html/', views.search_files, name = 'search-files'),
     re_path(r'^media/files/(?P<path>.+)/(?P<filename>[^/]+\.[^/]+)$', views.filesview, name = 'file-view'),
     re_path(r'^media/files/(?P<path>.*)$', views.filestructure, name = 'file-system'),

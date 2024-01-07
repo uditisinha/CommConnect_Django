@@ -26,46 +26,17 @@
                             <a href="{% url 'profile' user.id %}"><p>My Profile</p></a>
                             <a href="{% url 'logout' %}"><p>Logout</p></a>
                         </div>
-
                     </div>
+                    
 
             {% else %}
                 <a href="{% url 'login' %}" class="navlinks">Login</a>
             {% endif %}
             
 
-            </div>
 
-            <div class="mobile-menu-icon">
-                <div class="dropdown-main">
-                    {% if request.user.avatar %}
-                        <!-- Render the user's avatar if it exists -->
-                        <img src="{{ request.user.avatar.url }}" class="profile-avatar" alt="User Avatar">
-                    {% else %}
-                        <!-- Render the user's initial inside a circle if the avatar doesn't exist -->
-                        <div class="profile-circle"><p>{{ request.user.pname|slice:":1" }}</p></div>
-                    {% endif %}
-                    <div class="dropdown-content-nav">
-                        <a href = "{% url 'committees_list' %}" class = "navlinks">All Committees</a>
-                        <a href="{% url 'file-start' %}" class="navlinks">My Committees</a>
-                        <a href="{% url 'profile' user.id %}">My Profile</a>
-                        <a href="{% url 'logout' %}">Logout</a>
-                    </div>
-                </div>
             </div>
 
         </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var mobileMenuIcon = document.querySelector('.mobile-menu-icon');
-        var mobileMenu = document.querySelector('.mobile-menu');
-
-        mobileMenuIcon.addEventListener('click', function () {
-            mobileMenu.classList.toggle('show');
-        });
-    });
-</script>
-
 
 {% endblock content %}

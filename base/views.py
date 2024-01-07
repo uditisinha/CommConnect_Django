@@ -19,55 +19,6 @@ import os
 import sys
 from django.core.files.storage import FileSystemStorage
 from urllib.parse import unquote
-import docx
-import nltk
-import string
-import spacy
-import fitz  # PyMuPDF
-from collections import Counter
-
-
-def extract_text_from_pdf(file):
-    pdf_document = fitz.open(file)
-    text = ""
-    for page_num in range(pdf_document.page_count):
-        page = pdf_document[page_num]
-        text += page.get_text()
-    return text
-
-def process_file_keywords(file):
-    # Check file type
-    print("FILE NAME: ",file.name)
-    file_path = os.path.join(settings.MEDIA_ROOT, file.name)
-    print("FILEPATH:",file_path)
-    if file.name.endswith(('.txt', '.pdf', '.docx')):
-        if file.name.endswith('.pdf'):
-            print("YAO")
-            text = extract_text_from_pdf(file_path)
-        elif file.name.endswith('.docx'):
-            doc = docx.Document(file_path)
-            text = ' '.join([paragraph.text for paragraph in doc.paragraphs])
-        else:
-            text = file.read().decode('utf-8')  # For plain text files
-
-        # Remove stop words and filter out non-alphabetic words
-        nlp = spacy.load("en_core_web_sm")
-        words = nlp(text)
-        stop_words = set(nlp.Defaults.stop_words)
-        punctuations = set(string.punctuation)
-        spaces = set(" ")
-        # Filter out stop words and punctuation
-        filtered_words = [word.lemma_ for word in words if word.lemma_.lower() not in stop_words and word.lemma_ not in punctuations and word.text!=" "]
-    
-        # Now you can use Counter on the filtered words
-        word_freq = Counter(filtered_words)
-
-        # Get the most common words
-        most_common_words = [word for word, _ in word_freq.most_common(10)]  # Adjust '10' as needed
-
-        return ', '.join(most_common_words)
-    else:
-        return ""
 
 # Create your views here.
 @login_required(login_url = 'login')
@@ -311,6 +262,13 @@ def registeruser(request):
     context = {'form': form, 'page': page}
     return render(request, 'base/login_register.html', context)
 
+
+def success(request):
+    return render(request, 'base/success.html')
+
+def sending_token(request):
+    return render(request, 'base/sending_token.html')
+
 def send_mail_for_registration(email, token):
     subject = "Your verification mail for CommConnect"
     message = f"Please click on this link to verify your email and Log in - https://commconnect.pythonanywhere.com///verify/{token}"
@@ -473,7 +431,7 @@ def search_files(request):
     user = request.user
     committees = Committees.objects.filter(members=user) | Committees.objects.filter(convener=user) | Committees.objects.filter(staff=user)
     filtered_files = File.objects.filter(
-        (Q(name__icontains = q) | Q(keywords__icontains = q) | Q(committee__name__icontains = q) | Q(file__icontains =q) )
+        (Q(name__icontains = q) | Q(keywords__icontains = q) | Q(committee__name__icontains = q))
     )
     committee_list=[]
     for c in committees:
@@ -565,7 +523,7 @@ def filestructure(request,path=''):
     if q!='':
         current_url = current_url.rsplit("?q",1)[0]
         files_to_access = File.objects.filter(
-        Q(name__icontains = q) | Q(keywords__icontains = q) | Q(file__icontains =q) | Q(committee__name__icontains = q),id__in = files_to_access)
+        Q(name__icontains = q) | Q(keywords__icontains = q) | Q(committee__name__icontains = q),id__in = files_to_access)
     file_paths = []
     file_extensions = []
     i=0
@@ -618,26 +576,12 @@ def filestructure(request,path=''):
                 return redirect(current_url)
             else:
                 print("ERROR")
+
     if request.method == "POST" and 'second_post' in request.POST.keys():
         form2 = FileForm(request.POST,request.FILES)
-        if form2.is_valid():
-            # Save the form to get the file_instance
-            file_instance = form2.save()
-
-            # Keep track of the file_instance's ID
-            file_instance_id = file_instance.id
-            print("ID: ",file_instance_id)
-            # Retrieve the file_instance using the ID
-            file_instance = File.objects.get(id=file_instance_id)
-
-            print("FILE INSTANCE KEYWORDS BEFORE: " + file_instance.keywords)
-            # Now you can access the file object and update its keywords
-            file_instance.keywords += process_file_keywords(file_instance.file)
-            print("FILE INSTANCE KEYWORDS AFTA: " + file_instance.keywords)
-
-            # Save the instance with updated keywords
-            file_instance.save()
-
+        if(form2.is_valid()):
+            form2.save()
+            print(sys.path)
             return redirect(current_url)
         else:
             print("NOT VALID")
