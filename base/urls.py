@@ -28,3 +28,5 @@ urlpatterns=[
     re_path(r'^media/files/(?P<path>.*)$', views.filestructure, name = 'file-system'),
     re_path(r'media/files/', views.filestructure, name = 'file-start'),
 ]
+
+urlpatterns +=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
