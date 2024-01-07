@@ -1,9 +1,22 @@
+{% load static %}
 
+<head>
+    <title>Error</title>
+    <link rel="stylesheet" href="{% static 'error.css' %}">
+</head>
 
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+<body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="mainbody">
+        <img src="../media/images/error.png">
+        <h1>Some error occured :(</h1>
+    </div>
+    
+</body>

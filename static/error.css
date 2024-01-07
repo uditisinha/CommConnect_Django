@@ -1,0 +1,8 @@
+.mainbody{
+    transform: translateY(50%);
+    text-align: center;
+}
+
+body{
+    background-color: #FEE2E2;
+}
