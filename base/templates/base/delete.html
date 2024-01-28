@@ -17,10 +17,12 @@
         <input type = "submit" value="Confirm Deletion" class = "delete_file_confirm" name = "delete_file_confirm">
     </form>
 
+    <div class="gobackdeletewrapper">
     <button class = "go_back_delete">
         <a href="{{ request.META.HTTP_REFERER }}" style = "font-size: 2.5vh; text-decoration: none; color: #B7202E;">
             Go Back
         </a></button>
+    </div>
 </div>
 
 {% endblock content%}

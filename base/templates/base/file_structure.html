@@ -16,7 +16,7 @@
 
       {% if check == '1' %}
 
-        <h1 style = "text-align: center; margin-top: 19vh; font-size: 6vh;">Your committee directories</h1>
+        <h1 class = "title_dir">Your committee directories</h1>
         <div class = "committees_directory">
           {% for dir in files %}
             {% if dir in committee_names %}
@@ -45,7 +45,10 @@
 
     <div class = "folders_system">
 
-      <h4 class = "folder_title">Folders</h4>
+      <div class="hide_folder_wrapper">
+        <h4 class = "folder_title">Folders</h4>
+        <button id="hideFoldersButton" class="hide_folder"><img src = "/media/images/cross.png" class = "cross_png"></button>
+      </div>
       <hr style = "width: 30vh; margin-left: 5vh; margin-bottom: 2vh;">
 
         <div class = "folders_list">
@@ -62,63 +65,64 @@
 
       <hr style = "width: 30vh; margin-left: 5vh; margin-top: 2vh;">
           {% if check2 is not 1 or request.user.is_superuser %}
-          <form method = "POST" class = "searchbar_folders">
-            {% csrf_token %}
-          <div class = "add_folder">
-            <input type = "text" id = "folderName" name = "name" class = "add_folder_field" placeholder = "Create new folder">
-            <input type = "submit" name = "first_post" value = "Add" class = "add_folder_button">
-          </div>
-            <input type = "hidden" name = "parent_directory" value = "{{directory}}">
-          </form>
+            <form method = "POST" class = "searchbar_folders">
+              {% csrf_token %}
+              <div class = "add_folder">
+                <input type = "text" id = "folderName" name = "name" class = "add_folder_field" placeholder = "Create new folder">
+                <input type = "submit" name = "first_post" value = "Add" class = "add_folder_button">
+              </div>
+              <input type = "hidden" name = "parent_directory" value = "{{directory}}">
+            </form>
           {% endif %}
-      </div>
+    </div>
 
       <div class = "back4"></div>
       <div class = "back5"></div>
       <div class = "back6"></div>
+      <img src="/media/images/show_folder.png" id="showFoldersButton" class="show_folders"></img>
       
 
 
     <div class = "searchbardiv_files">   
-      {% if check2 is not 1 or request.user.is_superuser %}
-      <button data-bs-toggle="modal" data-bs-target="#myModal" class = "add_files_button">Add Files</button>
-      {% endif %}
-      <form action="{{current_url}}" method="GET">
+      <div class="number_of_files">
+        {% if check2 is not 1 or request.user.is_superuser %}
+        <button data-bs-toggle="modal" data-bs-target="#myModal" class = "add_files_button">Add Files</button>
+        {% endif %}
+      
+        {% if plural == True %}
+          <p>{{ no_of_files }} files</p>
+        {% else %}
+          <p>{{ no_of_files }} file</p>
+        {% endif %}
+      </div>    
+
+      <div class="committee_name_wrapper">
+        <div class="committee_name">
+          <p>
+            {{cleaned_checker_for_main_file}}
+          </p>
+        </div>
+      </div>
+      
+      <form action="{{current_url}}" method="GET" class = "searchbar_wrapper">
         <input type="text" name="q" placeholder="Search Files Here.." class = "searchbar_files">
       </form>
     </div>
   
-    <div class = "file_display_wrapper">
-    </div>
+    <div class = "file_display_wrapper"></div>
 
-    <div class="committee_name_wrapper">
-      <div class="committee_name">
-        <p>
-          {{cleaned_checker_for_main_file}}
-        </p>
-      </div>
-    </div>
-
-    <div class="number_of_files">
-      {% if plural == True %}
-        <p>{{ no_of_files }} files</p>
-      {% else %}
-        <p>{{ no_of_files }} file</p>
-      {% endif %}
-    </div>
-    
     <div class="file_display">
           {% for f in files_context %}
               <div class="file_card {{ f.2 }}">
                   <a href="{{ f.1 }}" class="name_file">{{ f.0.name }}</a>
-                  <hr style="border-top: 0.2vh solid black; width: 30vh; margin-left: 5vh; margin-top: 1vh;">
+                  <hr style = "width: 80%; margin: auto;">
                   <p class="source">Source: {{ f.0 }}</p>
                   {% if check2 is not 1 or request.user.is_superuser %}
                       <a href="{% url 'deletefile' f.0.id|urlencode %}" class="delete_file">Delete file</a>
                   {% endif %}
               </div>
           {% endfor %}
-  </div>
+    </div>
   
     
 {% if check2 is not 1 or request.user.is_superuser %}
@@ -167,6 +171,46 @@
 {% endif %}
 
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var foldersSystem = document.querySelector(".folders_system");
+    var back4 = document.querySelector(".back4");
+    var back5 = document.querySelector(".back5");
+    var back6 = document.querySelector(".back6");
+
+    if (showFoldersButton && foldersSystem && back4 && back5 && back6) {
+      showFoldersButton.addEventListener("click", function () {
+        // Toggle the visibility of folders_system
+        foldersSystem.style.display = foldersSystem.style.display === "none" ? "block" : "none";
+
+        // Toggle the widths of back4, back5, and back6
+        back4.style.width = back4.style.width === "1vh" ? "40.7vh" : "1vh";
+        back5.style.width = back5.style.width === "2vh" ? "41.5vh" : "2vh";
+        back6.style.width = back6.style.width === "3vh" ? "42.5vh" : "3vh";
+      });
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var foldersSystem = document.querySelector(".folders_system");
+    var back4 = document.querySelector(".back4");
+    var back5 = document.querySelector(".back5");
+    var back6 = document.querySelector(".back6");
+
+    if (hideFoldersButton && foldersSystem && back4 && back5 && back6) {
+      hideFoldersButton.addEventListener("click", function () {
+        // Toggle the visibility of folders_system
+        foldersSystem.style.display = foldersSystem.style.display === "none" ? "block" : "none";
+
+        // Toggle the widths of back4, back5, and back6
+        back4.style.width = back4.style.width === "1vh" ? "40.7vh" : "1vh";
+        back5.style.width = back5.style.width === "2vh" ? "41.5vh" : "2vh";
+        back6.style.width = back6.style.width === "3vh" ? "42.5vh" : "3vh";
+      });
+    }
+  });
+</script>
 
 </body>
 {% endblock content %}

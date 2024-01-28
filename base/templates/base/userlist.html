@@ -25,24 +25,23 @@
         {{ form.email.errors }}
         <button class = "add_user">Add User</button>
     </form>
-    <p style = "text-align: center; font-size: 2.5vh; color: rgb(92, 91, 91);">
+    <p>
         Please note that only the following users are authorized to sign up for this website.
         <br>Ensure that the provided email addresses are accurate when adding new users.
     </p>
 
-    <div class = "authorized_users_list">
-    <hr>
-    {% for user in users %}
-    <div class = "user">
-        <div class = "user_row">
-            <h1>{{user.email}}</h1>
+        <div class = "authorized_users_list">
+        <hr>
+        {% for user in users %}
+        <div class="user_wrapper">
+        <div class = "user">
+            <div class = "user_row">
+                <h1>{{user.email}}</h1>
+            </div>
         </div>
-    </div>
+        </div>
     <hr>
     {% endfor %}
 </div>
-
-
-
 </div>
 {% endblock %}

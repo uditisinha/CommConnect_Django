@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>  
-  <link href="{% static 'profile.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'profile.css' %}">
 </head>
 
 <body>
@@ -22,24 +22,19 @@
   {% endif %}
   
 <div class = "content">
-  <div class="profilepic">
-    <div class="top">
-      <div class="upper_square"></div>
-      </div>
-    <div class="bottom"></div>
+  <div class="top">
+    {% if user.avatar %}
+    <img class="profile-picture" src="{{ user.avatar.url }}">
+    {% else %}
+    <img class="profile-picture" src="../media/images/default_user.jpg">
+    {% endif %}
+
+    {% if user.honorific %}
+    <h1 class = "name">{{user.honorific}} {{user.pname}}</h1>
+    {% else %}
+    <h1 class = "name">{{user.pname}}</h1>
+    {% endif %}
   </div>
-
-  {% if user.honorific %}
-  <h1 style="font-size: 6vh; margin-top: 2vh; margin-left: 50vh; position:relative">{{user.honorific}} {{user.pname}}</h1>
-  {% else %}
-  <h1 style="font-size: 6vh; margin-top: 2vh; margin-left: 50vh; position:relative">{{user.pname}}</h1>
-  {% endif %}
-
-  {% if user.avatar %}
-  <img class="profile-picture" src="{{ user.avatar.url }}">
-  {% else %}
-  <img class="profile-picture" src="../media/images/default_user.jpg">
-  {% endif %}
 
   <div class="details">
     <div class="leftdetails">
@@ -73,26 +68,28 @@
               {% if user == committee.convener %}
               <div class = "position">
                 <h4>Position:</h4>
-                <h1 class = "position_inner">Convener</h1>
+                <h1 class = "position_inner"> Convener</h1>
               </div>
               {% endif %}
 
               {% if user in committee.members.all and not user == committee.convener and not user in committee.staff.all %}
               <div class = "position">
                 <h4>Position:</h4>
-                <h1 class = "position_inner">Member</h1>
+                <h1 class = "position_inner"> Member</h1>
               </div>
               {% endif %}
 
               {% if user in committee.staff.all and not user == committee.convener and not user in committee.members.all %}
               <div class = "position">
                 <h4>Position:</h4>
-                <h1 class = "position_inner">Staff</h1>
+                <h1 class = "position_inner"> Staff</h1>
               </div>
               {% endif %}
 
             {% if request.user.id == user.id %}
+            <div class="redirect_folder_wrap">
               <a href = "/media/files/{{committee}}/"><button class = "redirect_folder">Show folder</button></a>
+            </div>
             {% endif %}
             </div>
           {% endfor %}
@@ -107,7 +104,6 @@
         <span class="visually-hidden">Next</span>
       </button>      
   </div>
-
 </div>
 
 {% if request.user.id ==  user.id %}

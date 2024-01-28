@@ -4,7 +4,7 @@
 
 <head>
     <title>Committees</title>
-    <link rel="stylesheet" href="{% static 'committees_list.css' %}">
+    <link rel="stylesheet" href="{% static 'committees_lists.css' %}">
 </head>
 
 <body>
@@ -27,28 +27,32 @@
 
     <hr>
     <div class = "topic">
-        <h2>Name</h2>
-        <h2 style = "margin-left: 49vh;">Convener</h2>
-        <h2 style = "margin-left: 29vh;">Level</h2>
+        <h2 style="width: 40%;">Name</h2>
+        <h2>Convener</h2>
+        <h2 style="width: 20%;">Level</h2>
     </div>
 
 {% for committee in selected_committees %}
     <hr>
     <div class = "committees">
-            <div class = "name">
-                <h5><a href = "{% url 'committee' committee.id %}" class = "link_committee">
-                    {{committee.name}}
-                </a></h5>
-            </div>
+        <div class="committees_child">
+                <div class = "name">
+                    <h5><a href = "{% url 'committee' committee.id %}" class = "link_committee">
+                        {{committee.name}}
+                    </a></h5>
+                </div>
 
-            <div class = "convener">
-                <a href = "{% url 'profile' committee.convener.id %}" class = "convener_name">{{committee.convener.pname}}
-                </a>
-            </div>
-            
-            <div class = "level">
-                <h5>{{committee.level}}</h5>
-            </div>
+                <div class = "convener">
+                    <h5>
+                    <a href = "{% url 'profile' committee.convener.id %}" class = "convener_name">{{committee.convener.pname}}
+                    </a>
+                    </h5>
+                </div>
+                
+                <div class = "level">
+                    <h5>{{committee.level}}</h5>
+                </div>
+        </div>
     </div>
 
 {% endfor %}

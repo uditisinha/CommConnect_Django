@@ -3,12 +3,8 @@
 <head>
 
     <title>CommConnect</title>
-    <link rel="stylesheet" href="{% static 'login_register.css' %}">
     <link rel="icon" type="image/png" href="../media/images/mainicon.png" />
-    <style>
-
-    </style>
-
+    <link rel="stylesheet" href="{% static 'login_register.css' %}">
 </head>
 
 {% if page == 'login' %}
@@ -56,12 +52,11 @@
 {% endif %}
 
 
-    <div class = "login_register_heading">Sign Up</div>
+    <div class = "register_heading">Sign Up</div>
     <form method = "POST">
         
         {% csrf_token %}
         <div class = "registermaindiv">
-        <div class = "leftregister"></div>
 
         <div class = "rightregister">
         <div class="form-wrapper">     
