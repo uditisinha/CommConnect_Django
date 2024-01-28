@@ -234,25 +234,25 @@ body{
     display: flex;
 }
 
-
 .messages {
-        position: fixed;
-        z-index: 9999;
-        border-radius: 0.5vh;
-        padding: 1vh;
-        font-size: 2.5vh;
-        border-style: solid;
-        border-width: 0.2vh;
-        width: 60vh;
-        height: 6vh;
-        text-align: center;
-        background-color: #d4e3f4;
-        top: 10vh;
-        left: 50%;
-        transform: translateX(-50%);
-        animation: fadeOut 3s ease-out forwards;
-        box-shadow: 0px 0px 0.8vh rgba(0, 0, 0, 0.603);
-    }
+    position: fixed;
+    z-index: 9999;
+    border-radius: 0.5vh;
+    padding-bottom: 2vh;
+    font-size: 3vh;
+    border-style: solid;
+    border-width: 0.2vh;
+    width: 70vw;
+    height: fit-content;
+    font-style: italic;
+    text-align: center;
+    background-color: rgb(255, 248, 248);
+    top: 15vh;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: fadeOut 3s ease-out forwards;
+    box-shadow: 0px 0px 0.8vh rgba(0, 0, 0, 0.603);
+}
 
 @keyframes fadeOut {
     0% {
@@ -267,20 +267,20 @@ body{
     }
 }
 
-
 .messages {
     position: fixed;
     z-index: 9999;
     border-radius: 0.5vh;
-    padding: 1vh;
-    font-size: 2.5vh;
+    padding-bottom: 2vh;
+    font-size: 3vh;
     border-style: solid;
     border-width: 0.2vh;
-    width: 60vh;
-    height: 6vh;
+    width: 70vw;
+    height: fit-content;
+    font-style: italic;
     text-align: center;
-    background-color: #d4e3f4;
-    top: 5vh;
+    background-color: rgb(255, 248, 248);
+    top: 15vh;
     left: 50%;
     transform: translateX(-50%);
     animation: fadeOut 3s ease-out forwards;
@@ -304,20 +304,20 @@ color: #B7202E;
 }
 }
 
-
 .messages {
     position: fixed;
     z-index: 9999;
     border-radius: 0.5vh;
-    padding: 1vh;
-    font-size: 2.5vh;
+    padding-bottom: 2vh;
+    font-size: 3vh;
     border-style: solid;
     border-width: 0.2vh;
-    width: 60vh;
-    height: 6vh;
+    width: 70vw;
+    height: fit-content;
+    font-style: italic;
     text-align: center;
-    background-color: #d4e3f4;
-    top: 5vh;
+    background-color: rgb(255, 248, 248);
+    top: 15vh;
     left: 50%;
     transform: translateX(-50%);
     animation: fadeOut 3s ease-out forwards;
@@ -524,4 +524,7 @@ color: #B7202E;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
+.messages{
+    font-size: 2vh;
+}
 }

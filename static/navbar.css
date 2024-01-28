@@ -1,4 +1,4 @@
-
+        
 .mobile-menu-icon{
     display: none;
 }
@@ -25,7 +25,7 @@
     background-color: #cda1a1;
 }
 
-.dropdown-content-nav p{                
+.dropdown-conftent-nav p{                
     justify-content: center;
     align-items: center;
 }
@@ -116,7 +116,6 @@
 .messages{
     z-index: 999;
     border-radius: 1vh;
-    padding: 1vh;
     font-size: 2.5vh;
 }
 
@@ -124,12 +123,12 @@
     position: fixed;
     z-index: 9999;
     border-radius: 0.5vh;
-    padding: 1vh;
+    padding-bottom: 2vh;
     font-size: 3vh;
     border-style: solid;
     border-width: 0.2vh;
     width: 70vw;
-    height: 9vh;
+    height: fit-content;
     font-style: italic;
     text-align: center;
     background-color: rgb(255, 248, 248);
@@ -180,5 +179,9 @@
 
     .mobile-menu-icon{
         display: block;
+    }
+
+    .messages{
+        font-size: 2vh;
     }
 }
