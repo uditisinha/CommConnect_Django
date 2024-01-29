@@ -5,7 +5,183 @@
 
 <head>
     <title>Users Authorized</title>
-    <link rel="stylesheet" href="{% static 'userlist.css' %}">
+    <style>
+                
+.content p{
+    text-align: center; 
+    font-size: 2.5vh; 
+    color: rgb(92, 91, 91);
+}
+
+.user_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 70vw;
+}
+
+.user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70vw;
+    height: 10vh;
+    padding: 0;
+    margin: 0;
+}
+
+.user_wrapper:nth-of-type(even) {
+    background-color: #FEE2E2;
+}
+
+.user_wrapper:nth-of-type(odd) {
+    background-color: white;
+}
+
+.user_row h1{
+    font-size: 2.5vh;
+}
+
+hr{
+    border: none;
+    border-top: 0.1vh solid black;
+    margin: 0;
+    margin: auto;
+    width: 70vw;
+}
+
+.add_user{
+    padding: 2vh;
+    border-radius: 2vh;
+    background-color: #B7202E;
+    color: white;
+    width: 15vh;
+    border-width: 0.1vh;
+    font-size: 2vh;
+}
+
+.add_user:hover{
+    background-color: #821925;
+}
+
+.add_user_form input[type = "email"] {
+    padding: 2vh;
+    font-size: 2.5vh;
+    border-radius: 3vh;
+    border-width: 0.1vh;
+    width: 30vw;
+    border-style: solid;
+    border-color: #B7202E;
+}
+
+.add_user_form input:hover{
+    outline: none;
+    border-color: #B7202E;
+    box-shadow: 0 0 0.5vh #B7202E;
+}
+
+.add_user_form{
+    margin-top: 20vh;
+    text-align: center;
+}
+
+.add_user_form label {
+    font-size: 2.5vh;
+}
+
+.success{
+    color: green;
+    transform: translateY(60%);
+}
+
+.error{
+    border-color: #B7202E;
+}
+
+.errorlist{
+    color: #B7202E;
+}
+
+
+@media (max-width: 1024px) {
+
+.user_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 80vw;
+}
+
+hr{
+    border: none;
+    border-top: 0.1vh solid black;
+    margin: 0;
+    margin: auto;
+    width: 80vw;
+}
+
+.user_row h1{
+    font-size: 2vh;
+}
+
+.authorized_users_list{
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+.add_user_form{
+    margin-top: 15vh;
+    text-align: center;
+}
+
+.user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70vw;
+    height: 7vh;
+    padding: 0;
+    margin: 0;
+}
+    
+.add_user_form input[type = "email"] {
+    padding: 1.5vh;
+    font-size: 2vh;
+    border-radius: 3vh;
+    border-width: 0.1vh;
+    width: 70vw;
+    border-style: solid;
+    border-color: #B7202E;
+    margin-bottom: 1vh;
+}
+
+.add_user_form label {
+    font-size: 2vh;
+}
+
+.add_user{
+    padding: 1vh;
+    border-radius: 1vh;
+    background-color: #B7202E;
+    color: white;
+    width: 20vw;
+    border-width: 0.1vh;
+    font-size: 1.5vh;
+    margin-bottom: 1vh;
+}
+
+.content p{
+    text-align: center; 
+    width: 90vw;
+    margin: auto;
+    font-size: 2vh; 
+    color: rgb(92, 91, 91);
+}
+
+}
+    </style>
 </head>
 
 <div class = "content">
