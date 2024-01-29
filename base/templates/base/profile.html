@@ -8,7 +8,365 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>  
-  <link rel="stylesheet" href="{% static 'profile.css' %}">
+  <style>
+    
+.profilepic{
+  display: flex;
+  flex-direction: column;
+}
+
+body{
+margin: 0;
+}
+
+.carousel-item a{
+color:white;
+}
+
+.carousel{
+width: 100%;
+margin: 0;
+}
+
+.top{
+  height: 49.25vh;
+  background-image:url("../media/images/campus.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-style: solid;
+  border-width: 0.01vh;
+  margin-left: 0;
+}
+
+.bottom{
+  display: flex;
+  max-width: 80%;
+  max-height: 35vh;
+  border-style: solid;
+  border-width: 0.01vh;
+  border-color: white;
+  border-top: 0;
+}
+
+.details{
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  border-width: 0.01vh;
+  border-color: white;
+  border-top: 0;
+  margin-top: 20vh;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  flex: 1;
+}
+
+.carousel-inner h4{
+  font-size: 4vh;
+  margin-top: 5vh;
+  margin-left: 2vh;
+  color: #949494;
+  white-space: nowrap; 
+}
+
+.details h4{
+  font-size: 4vh;
+  margin-top: 5vh;
+  margin-left: 2vh;
+  color: #949494;
+  white-space: nowrap; 
+}
+
+.details h6{
+  color: #B7202E;
+  font-size: 3vh;
+  margin-top: 1vh;
+  margin-left: 2vh;
+  white-space: nowrap; 
+}
+
+.leftdetails, .rightdetails {
+  width: 50%;
+  white-space: nowrap; 
+}
+
+.leftdetails h4,
+.rightdetails h4,
+.leftdetails h6,
+.rightdetails h6 {
+  margin-bottom: 0; 
+}
+
+.profile-picture {
+position: absolute;  
+margin-top: 35vh;    
+margin-left: 10vw;
+width: 12vw; /* Adjust the width as needed */
+height: 12vw; /* Adjust the height as needed */
+border-radius: 5%; /* Optional: Applies a circular shape to the image */
+border: 0.4vh solid black; /* Optional: Adds a white border around the image */
+z-index: 2; /* Ensures the image appears above the background */
+}
+
+.editprofile{
+margin-top: 12vh;
+padding: 2vh;
+background-color: #B7202E;
+color: white;
+border-radius: 1vh;
+width: 20vh;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 4vh;
+border-width: 0.1vh;
+font-size: 2vh;
+}
+
+.editprofile:hover{
+background-color: #821925;
+}
+
+.edit_a{
+text-decoration: none;
+} 
+
+.carousel-item{
+    margin-top: 2vh;
+    background-color: #FEE2E2;
+    border-radius: 1vh;
+    border-style: solid;
+    border-width: 0.2vh;
+    border-color: black;
+    height: 40vh;
+    word-wrap: break-word;
+}
+
+#carouselExampleIndicators {
+  width: 90vh;
+  padding: 0;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10vh;
+    background-color: #B7202E;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2vh;
+    box-sizing: border-box;
+    z-index: 9999;          
+    font-size: 3vh;      
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 5vh;
+    height: 5vh;
+    margin-top: 0vh;
+}
+
+.carousel-item{
+    word-wrap: break-word;
+}
+
+.carousel-item:nth-of-type(even) {
+    background-color: #D9D9D9;
+}
+
+.carousel-item:nth-of-type(odd) {
+    background-color: #FEE2E2;
+}
+
+.position_inner{
+  font-size: 3vh;
+  margin-left: 1vh;
+}
+
+.position{
+  margin-top: 5vh;
+  display: flex;
+  justify-content: center;
+}
+
+.position h4{
+  font-size: 3vh; 
+  margin: 0; 
+  color: #B7202E;
+  padding: 0;
+}
+
+.redirect_folder{
+      padding: 1vh;
+      background-color: #B7202E;
+      color: white;
+      width: 20vh;
+      margin: auto;
+      font-size: 2.5vh;
+      border-radius: 1vh;
+      border-width: 0.2vh;
+      margin-top: 0;
+}
+
+.redirect_folder_wrap{
+  display: flex;
+  justify-content: center;
+}
+
+.redirect_folder:hover{
+  background-color: #821925;
+}
+
+  .committee_name_slider{
+      font-size: 3vh;
+      text-decoration: underline;
+      color: black;
+      max-width: 90vh;
+      height: 10vh;
+      text-align: center;
+      overflow: hidden;
+      margin: auto;
+      margin-top: 5vh;
+  }
+
+  .carousel-control-prev img{
+    height: 4.5vh;
+    width: 4vh;
+  }
+
+  .carousel-control-next img{
+    height: 4.5vh;
+    width: 4vh;
+  }
+
+  .name{
+    margin-top: 50vh;    
+    margin-left: 25vw;
+  }
+
+
+@media (max-width: 1024px) {
+
+  .profile-picture{
+    width: 12vh;
+    height: 12vh;
+    margin-top: 14vh;
+
+  }
+  
+  .name{
+    margin-top: 21vh;
+    margin-left: 40vw;
+  }
+
+  .top{
+    height: 20vh;
+  }
+
+  .details h4{
+    font-size: 3vh;
+    margin-top: 5vh;
+    margin-left: 2vh;
+    color: #949494;
+    white-space: nowrap; 
+}
+
+.details h6{
+  color: #B7202E;
+  font-size: 2vh;
+  margin-top: 1vh;
+  margin-left: 2vh;
+  white-space: nowrap; 
+}
+
+.details{
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-top: 10vh;
+  height: fit-content;
+  border-width: 0.01vh;
+  border-color: white;
+  border-top: 0;
+  margin-bottom: 3vh;
+  flex: 1;
+}
+
+#carouselExampleIndicators{
+width: 70vw;
+margin: 0;
+margin: auto;
+}
+
+.position_inner{
+  font-size: 2vh;
+  margin-left: 0;
+}
+
+.position{
+  margin-top: 3vh;
+  display: flex;
+  justify-content: center;
+}
+
+.position h4{
+  font-size: 2vh; 
+  margin: 0; 
+  color: #B7202E;
+  padding: 0;
+}
+
+.redirect_folder{
+      padding: 0.5vh;
+      background-color: #B7202E;
+      color: white;
+      width: 15vh;
+      font-size: 2vh;
+      border-radius: 1vh;
+      border-width: 0.2vh;
+      margin: 0;
+  }
+
+  .committee_name_slider{
+      font-size: 3vh;
+      text-decoration: underline;
+      color: black;
+      max-width: 90vh;
+      height: 17vh;
+      text-align: center;
+      overflow: hidden;
+      margin: auto;
+      margin-top: 5vh;
+  }
+  
+  
+.editprofile{
+margin-top: 0;
+padding: 1vh;
+background-color: #B7202E;
+color: white;
+border-radius: 1vh;
+width: 30vw;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 4vh;
+border-width: 0.1vh;
+font-size: 2vh;
+}
+
+}
+  </style>
 </head>
 
 <body>
