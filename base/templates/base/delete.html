@@ -5,7 +5,57 @@
 
 <head>
     <title>Delete Files</title>
-    <link rel="stylesheet" href="{% static 'delete.css' %}">
+    <style>
+        .delete_form{
+    margin-top: 30vh;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.delete_form p{
+    font-size: 4vh;
+    margin-bottom: 5vh;
+}
+
+.delete_form p2{
+    font-size: 2.5vh;
+}
+
+.delete_file_confirm{
+    margin-top: 5vh;
+    font-size: 2.5vh;
+    padding: 2vh;
+    color: white;
+    border-radius: 1vh;
+    background-color: #B7202E;
+    border-style: solid;
+    border-width: 0.1vh;
+}
+
+.delete_file_confirm:hover{
+    background-color: #821925;
+}
+
+.go_back_delete{
+    margin-top: 3vh;
+    font-size: 2.5vh;
+    padding: 2vh;
+    border-radius: 1vh;
+    background-color: white;
+    border-style: solid;
+    border-width: 0.1vh;
+    border-color: #B7202E;
+}
+
+.gobackdeletewrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.go_back_delete:hover{
+    background-color: #D9D9D9;
+}
+    </style>
 </head>
 <div class="content">
     <form id="delete-form" method="POST" action="" class = "delete_form">
