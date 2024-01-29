@@ -132,7 +132,7 @@ def send_forget_password_mail(email, token):
     message = f"http://commconnect.pythonanywhere.com/change_password/{token}"
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
-    #send_mail(subject, message, email_from, recipient_list)
+    send_mail(subject, message, email_from, recipient_list)
     return True
 
 def send_change_password_mail(email, token):
@@ -140,7 +140,7 @@ def send_change_password_mail(email, token):
     message = f"http://commconnect.pythonanywhere.com/change_password/{token}"
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
-    #send_mail(subject, message, email_from, recipient_list)
+    send_mail(subject, message, email_from, recipient_list)
     return True
 
 def change_password(request, token):
@@ -251,7 +251,7 @@ def registeruser(request):
                     token = user.auth_token
                     user.save()
 
-                    #send_mail_for_registration(email, token)
+                    send_mail_for_registration(email, token)
                     messages.error(request, 'Please click on the link mailed to your email ID to verify account.')
 
                     return redirect('/')
@@ -274,7 +274,7 @@ def send_mail_for_registration(email, token):
     message = f"Please click on this link to verify your email and Log in - https://commconnect.pythonanywhere.com///verify/{token}"
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
-    #send_mail(subject, message, email_from, recipient_list)
+    send_mail(subject, message, email_from, recipient_list)
 
 def verify(request, auth_token):
     try:
