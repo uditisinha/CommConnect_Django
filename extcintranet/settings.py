@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zf%+l)xj$!s*r()@oqa)gm^hm6cs*94tndfkdtaxeonhro6md-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['uditi.pythonanywhere.com', 'commconnect.pythonanywhere.com', '127.0.0.1', 'commconnect.onrender.com']
 
