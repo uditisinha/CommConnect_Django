@@ -8,7 +8,198 @@
     <head>
         
     <title>Committee Details</title>
-    <link rel="stylesheet" href="{% static 'comms.css' %}">
+    <style>
+        .right_committee{
+    margin-left: 10vw;
+}
+
+.committee_topic{
+    font-size: 6vh;
+    margin-top: 20vh;
+    text-align: center;
+    word-wrap: break-word;
+    max-height: 20vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.committee_topic::-webkit-scrollbar {
+    width: 0.5vh;
+  }
+
+  .committee_topic::-webkit-scrollbar-thumb {
+    background-color: #878787; 
+    border-radius: 1vh; 
+  }
+
+.committee_body{
+    margin-left: 1vw;
+    display: flex;
+}
+
+hr {
+    width: 15vw;
+    text-align: left;
+    margin: 0;
+    border: none;
+    border-top: 0.1vh solid #B7202E;
+}
+
+.left_committee h2{
+    text-align: center;
+    font-size: 2.8vh;
+}
+
+.left_committee h3{
+    color: #949494;
+    font-size: 3.5vh;
+    text-align: center;
+    margin-bottom: 2vh;
+}
+
+.left_committee{
+    width: 15vw;
+}
+
+.committee_body h5{
+    color: #949494;
+    font-size: 4vh;
+    margin: 5vh 0 1vh 0;
+}
+
+.committee_body p{
+    margin-top: 0;
+    font-size: 3vh;
+}
+
+.edit_button{
+    display: flex;
+    justify-content: center;
+}
+
+.edit_committees{
+    font-size: 2vh;
+    padding: 2vh;
+    background-color: #B7202E;
+    color: white;
+    border-radius: 1vh;
+    width: 15vh;
+    border-width: 0.1vh;
+    margin-top: 5vh;
+    text-align: center;
+    margin-bottom: 5vh;
+    margin-right: 1vw;
+}
+
+.edit_committees:hover{
+    background-color: #821925;
+}
+
+.redirect_folder_comms{
+    font-size: 2vh;
+    padding: 2vh;
+    background-color: #B7202E;
+    color: white;
+    border-radius: 1vh;
+    width: 15vh;
+    border-width: 0.1vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    text-align: center;
+    margin-left: 1vw;
+}
+
+.redirect_folder_comms:hover{
+    background-color: #821925;
+}
+
+.folder_link_comms{
+    text-decoration: none;
+    color: black;
+    word-wrap: break-word;
+}
+
+.folder_link_comms:hover{
+    color: rgb(117, 111, 111);
+}
+
+.committee_page_buttons{
+    display: flex;
+    justify-content: center;
+}
+
+
+@media (max-width: 1024px) {
+.committee_topic{
+    font-size: 3vh;
+    margin-top: 15vh;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+hr {
+    width: 30vw;
+    text-align: left;
+    margin: 0;
+    border: none;
+    border-top: 0.1vh solid #B7202E;
+}
+
+.left_committee{
+    width: 30vw;
+}
+
+.left_committee h2{
+    text-align: center;
+    font-size: 2vh;
+}
+
+.left_committee h3{
+    color: #949494;
+    font-size: 3vh;
+    text-align: center;
+}
+
+.right_committee{
+    margin-left: 2vw;
+}
+
+.right_committee h5{
+    margin: 0;
+    margin-top: 5vh;
+    font-size: 3vh;
+}
+
+.right_committee p{
+    font-size: 2vh;
+}
+
+.edit_committees{
+    font-size: 2vh;
+    padding: 1vh;
+    background-color: #B7202E;
+    color: white;
+    border-radius: 1vh;
+    width: 25vw;
+    border-width: 0.1vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.redirect_folder_comms{
+    font-size: 2vh;
+    padding: 1vh;
+    background-color: #B7202E;
+    color: white;
+    border-radius: 1vh;
+    width: 25vw;
+    border-width: 0.1vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+}
+    </style>
 
     </head>
 
