@@ -19,7 +19,9 @@
 .dropdown-content-nav {
     text-align: center;
     display: none;
-    position: absolute;
+    font-size: 2.5vh;
+    position: absolute;    
+    font-family: 'Times New Roman', Times, serif;
     z-index: 1;
 }
 
@@ -46,10 +48,18 @@
     background-color: #FEE2E2;
 }
 
-.profile-avatar,
 .profile-circle {
     width: 2vh;
     height: 2vh;
+    border-radius: 50%;
+    display: flex;
+    align-items: center; /* Vertical alignment */
+    justify-content: center; /* Horizontal alignment */
+}
+
+.profile-avatar {
+    width: 6vh; 
+    height: 6vh;
     border-radius: 50%;
     display: flex;
     align-items: center; /* Vertical alignment */
@@ -97,6 +107,7 @@
 
 .right{
     display: flex;
+    margin-right: 1vw;
 }
 .left{
     margin-right: auto;

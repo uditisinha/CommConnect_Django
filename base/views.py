@@ -5,7 +5,7 @@ import time
 # from mimetypes import guess_type
 from django.http import HttpResponse,FileResponse
 from .models import User, Committees, Folder, File, UserList
-from .forms import MyUserCreationForm, LoginForm, UserForm, CommitteeForm, UserListForm, CommitteeForm2
+from .forms import MyUserCreationForm, LoginForm, UserForm, CommitteeForm, UserListForm
 from django.db.models import Q
 from django.conf import settings
 from django.contrib import messages
@@ -318,7 +318,7 @@ def registeruser(request):
                     token = user.auth_token
                     user.save()
 
-                    send_mail_for_registration(email, token)
+                    # send_mail_for_registration(email, token)
                     messages.error(request, 'Please click on the link mailed to your email ID to verify account.')
 
                     return redirect('/')
@@ -435,7 +435,7 @@ def users_allowed(request):
                 messages.success(request, 'User Added.')
                 
                 subject = "Access granted to use CommConnect"
-                message = f"You can now register and use the features of CommConnect to manage all committee directories you're a part of!"
+                message = f"You can now register and use the features of CommConnect to manage all directories of the committees you're a part of! Check out the website at http://commconnect.pythonanywhere.com"
                 email_from = settings.EMAIL_HOST_USER
                 recipient_list = [email]
                 send_mail(subject, message, email_from, recipient_list)
@@ -579,8 +579,10 @@ def filestructure(request,path=''):
     if len(array_url) == 1:
         url_dict.clear()
 
+    var = updated_access_parameters2.replace(" ", "%20")
+
     for key, val in url_dict.items():
-        if val[0] == updated_access_parameters2:
+        if val[0] == var:
             delete_this_key = key
 
     if delete_this_key != -1:
