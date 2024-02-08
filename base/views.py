@@ -243,16 +243,31 @@ def edit_committee(request, pk):
         if not request.user.is_superuser:
             return HttpResponse('Only the committee\'s convener can edit the committee.')
     
-    form = CommitteeForm2(instance = committee)
-
+    form = CommitteeForm(instance = committee)
+    old_name = committee.name
     if request.method == "POST":
-        form = CommitteeForm2(request.POST, instance = committee)
+        form = CommitteeForm(request.POST, instance = committee)
         if form.is_valid():
+            media_root = str(settings.MEDIA_ROOT)
+            new_name = form.cleaned_data['name']           
+            print( f'{media_root}/files/{old_name}/')
+            matching_files = File.objects.filter(directory__startswith=f'{media_root}\\files/{old_name}/')
+            print("LENGTH OF FILE MATCHES: "+ str(len(matching_files)))
+            for f in matching_files:
+                old_path = f.directory
+                new_path = old_path.replace(old_name,new_name,1)
+                f.directory = new_path
+                f.save()
+            old_folder_path = os.path.join(media_root, 'files', old_name)
+            new_folder_path = os.path.join(media_root, 'files', new_name)
+            os.rename(old_folder_path, new_folder_path)
             form.save()
+
             return redirect(reverse('committee', kwargs = {'pk': pk}))
         
     context = {'form': form}
     return render(request, 'base/edit_committee.html', context)
+
 
 @login_required(login_url = 'login')
 def delete_committee(request, pk):
@@ -669,17 +684,30 @@ def filestructure(request,path=''):
                 print("ERROR")
 
     if request.method == "POST" and 'second_post' in request.POST.keys():
-        form2 = FileForm(request.POST,request.FILES)
-        if(form2.is_valid()):
-            form2.save()
-            print(sys.path)
-            return redirect(current_url)
-        else:
-            print("NOT VALID")
-    
+            form2 = FileForm(request.POST,request.FILES)
+            if form2.is_valid():
+                # Save the form to get the file_instance
+                file_instance = form2.save()
+
+                # Keep track of the file_instance's ID
+                file_instance_id = file_instance.id
+                print("ID: ",file_instance_id)
+                # Retrieve the file_instance using the ID
+                file_instance = File.objects.get(id=file_instance_id)
+
+                print("FILE INSTANCE KEYWORDS BEFORE: " + file_instance.keywords)
+                # Now you can access the file object and update its keywords
+                file_instance.keywords += process_file_keywords(file_instance.file)
+                print("FILE INSTANCE KEYWORDS AFTA: " + file_instance.keywords)
+
+                # Save the instance with updated keywords
+                file_instance.save()
+
+                return redirect(current_url)
+            else:
+                print("NOT VALID")
+        
     files_context=[]
-
-
 
     for i in range(len(file_paths)):
         files_context.append([files_to_access[i],file_paths[i],file_extensions[i]])

@@ -79,6 +79,10 @@
             {% csrf_token %}
             <div class="field-container">
                 <div>
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                </div>
+                <div>
                     {{ form.level.label_tag }}
                     {{ form.level }}
                 </div>
