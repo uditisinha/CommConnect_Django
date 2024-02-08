@@ -633,7 +633,12 @@ width: 4vh;
 <div class="center-container">
     <img src = "../media/images/committee.png" class = "committee_png">
 </div>
+
+{% if request.user.is_superuser %}
+<h1 class = "your_committees">All committees</h1>
+{% else %}
 <h1 class = "your_committees">Your committees</h1>
+{% endif %}
     <div id = "carouselExampleIndicators" class = "carousel slide">
         <div class = "carousel-indicators">
             {% for committee in committee_list %}

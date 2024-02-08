@@ -77,13 +77,32 @@ hr {
     justify-content: center;
 }
 
+.delete_button{
+    display: flex;
+    justify-content: center;
+}
+
 .edit_committees{
     font-size: 2vh;
     padding: 2vh;
     background-color: #B7202E;
     color: white;
     border-radius: 1vh;
-    width: 15vh;
+    width: fit-content;
+    border-width: 0.1vh;
+    margin-top: 5vh;
+    text-align: center;
+    margin-bottom: 5vh;
+    margin-right: 1vw;
+}
+
+.delete_committees{
+    font-size: 2vh;
+    padding: 2vh;
+    background-color: #B7202E;
+    color: white;
+    border-radius: 1vh;
+    width: fit-content;
     border-width: 0.1vh;
     margin-top: 5vh;
     text-align: center;
@@ -101,7 +120,7 @@ hr {
     background-color: #B7202E;
     color: white;
     border-radius: 1vh;
-    width: 15vh;
+    width: fit-content;
     border-width: 0.1vh;
     margin-top: 5vh;
     margin-bottom: 5vh;
@@ -180,7 +199,19 @@ hr {
     background-color: #B7202E;
     color: white;
     border-radius: 1vh;
-    width: 25vw;
+    width: fit-content;
+    border-width: 0.1vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.delete_committees{
+    font-size: 2vh;
+    padding: 1vh;
+    background-color: #B7202E;
+    color: white;
+    border-radius: 1vh;
+    width: fit-content;
     border-width: 0.1vh;
     margin-top: 2vh;
     margin-bottom: 2vh;
@@ -192,7 +223,7 @@ hr {
     background-color: #B7202E;
     color: white;
     border-radius: 1vh;
-    width: 25vw;
+    width: fit-content;
     border-width: 0.1vh;
     margin-top: 2vh;
     margin-bottom: 2vh;
@@ -238,6 +269,13 @@ hr {
     <div class="edit_button">
         <a href="{% url 'edit_committee' committee.id %}">
             <input type="button" value="Edit Details" class="edit_committees">
+        </a>
+    </div>
+    {% endif %}
+    {% if request.user.is_superuser %}
+    <div class="delete_button">
+        <a href="{% url 'delete_committee' committee.id %}">
+            <input type="button" value="Delete Committee" class="delete_committees">
         </a>
     </div>
     {% endif %}

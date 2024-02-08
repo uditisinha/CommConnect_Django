@@ -5,7 +5,7 @@ import time
 # from mimetypes import guess_type
 from django.http import HttpResponse,FileResponse
 from .models import User, Committees, Folder, File, UserList
-from .forms import MyUserCreationForm, LoginForm, UserForm, CommitteeForm, UserListForm
+from .forms import MyUserCreationForm, LoginForm, UserForm, CommitteeForm, UserListForm, CommitteeForm2
 from django.db.models import Q
 from django.conf import settings
 from django.contrib import messages
@@ -19,25 +19,77 @@ import os
 import sys
 from django.core.files.storage import FileSystemStorage
 from urllib.parse import unquote
+from django.core.cache import cache
+import docx
+import nltk
+import string
+import spacy
+import fitz  # PyMuPDF
+from collections import Counter
 
+temp = 0
+
+def extract_text_from_pdf(file):
+    pdf_document = fitz.open(file)
+    text = ""
+    for page_num in range(pdf_document.page_count):
+        page = pdf_document[page_num]
+        text += page.get_text()
+    return text
+
+def process_file_keywords(file):
+    # Check file type
+    print("FILE NAME: ",file.name)
+    file_path = os.path.join(settings.MEDIA_ROOT, file.name)
+    print("FILEPATH:",file_path)
+    if file.name.endswith(('.txt', '.pdf', '.docx')):
+        if file.name.endswith('.pdf'):
+            text = extract_text_from_pdf(file_path)
+        elif file.name.endswith('.docx'):
+            doc = docx.Document(file_path)
+            text = ' '.join([paragraph.text for paragraph in doc.paragraphs])
+        else:
+            text = file.read().decode('utf-8')  # For plain text files
+
+        # Remove stop words and filter out non-alphabetic words
+        nlp = spacy.load("en_core_web_sm")
+        words = nlp(text)
+        stop_words = set(nlp.Defaults.stop_words)
+        punctuations = set(string.punctuation)
+        spaces = set(" ")
+        # Filter out stop words and punctuation
+        filtered_words = [word.lemma_ for word in words if word.lemma_.lower() not in stop_words and word.lemma_ not in punctuations and word.text!=" "]
+    
+        # Now you can use Counter on the filtered words
+        word_freq = Counter(filtered_words)
+
+        # Get the most common words
+        most_common_words = [word for word, _ in word_freq.most_common(10)]  # Adjust '10' as needed
+
+        return ', '.join(most_common_words)
+    else:
+        return ""
+    
 # Create your views here.
-@login_required(login_url = 'login')
+@login_required(login_url='login')
 def home(request):
-    if request.user.is_authenticated :
+    if request.user.is_authenticated:
         user = request.user
-        committee_list = list(
-            Committees.objects.exclude(
-                ~Q(convener = user) & ~Q(members = user) & ~Q(staff = user)
+        if request.user.is_superuser:
+            committees_queryset = Committees.objects.all()
+        else:
+            committees_queryset = Committees.objects.exclude(
+                ~Q(convener=user) & ~Q(members=user) & ~Q(staff=user)
             )
-        )
+
+        committee_list = list(committees_queryset)
+
         context = {
             'committee_list': committee_list,
         }
         return render(request, "base/home.html", context)
     else:
-        # Handle the case when the user is not authenticated
         return redirect('login')
-
 
 @login_required(login_url = 'login')
 def committees_list(request): 
@@ -75,7 +127,7 @@ def loginuser(request):
 
             #checks for the user with given mail and password
             user = authenticate(request, email = email, password = password)
-            
+
             if user != None:
                 if user.is_verified:
                     login(request,user)
@@ -191,10 +243,10 @@ def edit_committee(request, pk):
         if not request.user.is_superuser:
             return HttpResponse('Only the committee\'s convener can edit the committee.')
     
-    form = CommitteeForm(instance = committee)
+    form = CommitteeForm2(instance = committee)
 
     if request.method == "POST":
-        form = CommitteeForm(request.POST, instance = committee)
+        form = CommitteeForm2(request.POST, instance = committee)
         if form.is_valid():
             form.save()
             return redirect(reverse('committee', kwargs = {'pk': pk}))
@@ -366,6 +418,13 @@ def users_allowed(request):
                 email = form['email']
                 email = form.save()
                 messages.success(request, 'User Added.')
+                
+                subject = "Access granted to use CommConnect"
+                message = f"You can now register and use the features of CommConnect to manage all committee directories you're a part of!"
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [email]
+                send_mail(subject, message, email_from, recipient_list)
+
                 return redirect('users_allowed')
         else:
             form = UserListForm()
@@ -456,8 +515,12 @@ def search_files(request):
     }
     return render(request,'base/searched-files.html',context)
     
+url_dict = {}
 @login_required(login_url = 'login')
 def filestructure(request,path=''):
+
+    delete_this_key = -1
+
     if request.GET.get('q') != None:
         q = request.GET.get('q')
     else:
@@ -476,6 +539,7 @@ def filestructure(request,path=''):
     base_url = request.build_absolute_uri('/')
     media_url = settings.MEDIA_URL[1:] # Get the base URL with protocol and domain
     files_url = base_url + media_url + 'files/' # Combine base URL with MEDIA_URL
+
     for committee in committee_names:
        url = files_url+committee
        if (url in unquote(current_url)):
@@ -483,17 +547,46 @@ def filestructure(request,path=''):
            flag=1 
     if (flag==0 and current_url!=files_url):
         flag2=1
-        print(flag2)
     if(current_url!=files_url):
         parts = current_url.split('/')
         back_url = '/'.join(parts[:-2]) + '/'
     else:
-        print('invalid')
         back_url = None
+
     updated_access_parameters = current_url.rsplit("media/",1)[1]
     updated_access_parameters = updated_access_parameters.rsplit("?q",1)[0]
     checker_for_main_file = current_url.rsplit("media/files/",1)[1]
     updated_access_parameters = unquote(updated_access_parameters)
+    updated_access_parameters2 = updated_access_parameters.rsplit("files/",1)[1]
+
+    array_url = updated_access_parameters2.rstrip('/').split('/')
+
+    if len(array_url) == 1:
+        url_dict.clear()
+
+    for key, val in url_dict.items():
+        if val[0] == updated_access_parameters2:
+            delete_this_key = key
+
+    if delete_this_key != -1:
+        keys_to_delete = [key for key in url_dict.keys() if key > delete_this_key]
+        for key in keys_to_delete:
+            del url_dict[key]
+
+    if all(checker_for_main_file not in values[0] for values in url_dict.values()):
+
+        # Generate a unique ID (you can use a more sophisticated method if needed)
+        unique_id = len(url_dict)
+        
+        parts = checker_for_main_file.rstrip('/').split('/')
+        path_url = parts[-1]
+        path_url = path_url.replace("%20", " ")
+
+        url_dict[unique_id] = []
+        
+        url_dict[unique_id].append(checker_for_main_file)
+        url_dict[unique_id].append(path_url)
+            
     cleaned_checker_for_main_file = checker_for_main_file.replace("%20", " ")
 
     try:
@@ -501,8 +594,6 @@ def filestructure(request,path=''):
         cleaned_checker_for_main_file = cleaned_checker_for_main_file.split("/")[0]
     except IndexError:
             cleaned_checker_for_main_file = checker_for_main_file.replace("/", "").replace("%20", " ")
-
-
 
 
     if(len(checker_for_main_file)>0):
@@ -617,6 +708,9 @@ def filestructure(request,path=''):
         'back_url':back_url,
         'mediaroot': mediaroot,
         'committee_names':committee_names,
+        'files_url': files_url,
         'cleaned_checker_for_main_file': cleaned_checker_for_main_file,
+        'updated_access_parameters2': updated_access_parameters2,
+        'url_dict': url_dict,
     }
     return render(request,'base/file_structure.html',context)

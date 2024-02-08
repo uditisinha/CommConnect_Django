@@ -13,6 +13,56 @@
   display: none;
 }
 
+.path{
+  height: fit-content;
+  padding: 0;
+  margin: 0;
+  margin-left: 1vw;
+  margin-top: 1vh;
+  width: 96%;
+  background-color:#e6e6e600;
+  z-index: 7;
+  position: fixed;
+  background-color: white;
+  display: flex;
+  overflow: hidden;
+  overflow-x: scroll;
+}
+
+.path::-webkit-scrollbar {
+    width: 0;
+    height: 0.5vh;
+  }
+
+  .path::-webkit-scrollbar-track {
+    background-color: #e3e3e3;
+    border-radius: 1vh; 
+  }
+
+  .path::-webkit-scrollbar-thumb {
+    background-color: #878787; 
+    border-radius: 1vh; 
+  }
+
+  .path::-webkit-scrollbar-thumb:hover {
+    background-color: #cccccc; 
+  }
+
+.path p{
+  padding: 0;
+  margin: 0;
+}
+
+.path a{
+  text-decoration: none;
+  color: #80252f;
+}
+
+.path a:hover{
+  text-decoration: underline;
+  color: #d43346;
+}
+
 .hide_folder{
   display: none;
 }
@@ -118,9 +168,10 @@
 
   .searchbardiv_files{
     display: flex;
+    height: 20vh;
     align-items: right;
     justify-content: right;
-    margin-top: 10vh;
+    margin-top: 1vh;
   }
 
   .searchbar_files{
@@ -272,7 +323,7 @@
     width: 40vh;
     height: 80vh;
     position: fixed;
-    top: 15%;
+    top: 18%;
     background-color: #D9D9D9;
     margin-left: 0;
     border-top-right-radius: 1vh;
@@ -296,7 +347,7 @@
     border-width: 0.1vh;
     margin-left: 2vh;
     position: fixed;
-    top: 13%;
+    top: 16%;
     font-size: 2vh;
     padding: 1vh;
     z-index: 999;
@@ -361,7 +412,7 @@
   .searchbar_folders{
     text-align: left;
     position: fixed;
-    top: 85%;
+    top: 87%;
     margin-top: 0;
     padding-top: 0;
     padding: 0;
@@ -409,7 +460,7 @@
     background-color: white;
     width: 40.7vh;
     position: fixed;
-    top: 17%;
+    top: 20%;
     z-index: 4;
     border-top-right-radius: 1vh;
     border-bottom-right-radius: 1vh;
@@ -423,7 +474,7 @@
     background-color: #dad9d9;
     width: 41.5vh;
     position: fixed;
-    top: 17%;
+    top: 20%;
     z-index: 2;
     border-top-right-radius: 1vh;
     border-bottom-right-radius: 1vh;
@@ -436,7 +487,7 @@
     width: 42.5vh;
     height: 78vh;
     position: fixed;
-    top: 16%;
+    top: 19%;
     background-color: #9f9e9e;
     margin-left: 0;
     border-top-right-radius: 1vh;
@@ -594,10 +645,10 @@
     position: fixed;
     z-index: -9999;
     text-align: center;
-    width: 35%;
-    height: 70vh;
+    width: 30%;
+    height: 60vh;
     font-weight: bold;
-    top: 25%;
+    top: 33%;
     left: 43vw;
     background-image: url('/media/images/Somaiya_logo.svg');
     opacity: 0.2;
@@ -678,7 +729,7 @@
   .show_folders{
     display: block;
     position: fixed;
-    top: 50%;
+    top: 53%;
     height: 5%;
     z-index: 3;
   }
@@ -706,14 +757,17 @@
 
   .folders_system{
     display: none;
+    height: 78vh;
+    top: 20%;
     z-index: 5;
   }
 
   .searchbardiv_files{
     display: flex;
     justify-content: space-between;
-    margin-top: 13vh;
+    margin-top: 1vh;
     margin-bottom: 1vh;
+    height: 15vh;
   }
   
   .searchbar_files{
@@ -748,7 +802,7 @@
     border-width: 0.1vh;
     margin-left: 1%;
     position: fixed;
-    top: 11%;
+    top: 16%;
     font-size: 2vh;
     padding: 0.5vh;
     z-index: 999;
@@ -760,16 +814,22 @@
   }
 
   .back4{
+    height: 74vh;
     display: block;
     width: 1vh;
+    top: 22%;
   }
 
   .back5{
+    height: 74vh;
     display: block;
     width: 2vh;
+    top: 22%;
   }
 
   .back6{
+    height: 76vh;
+    top: 21%;
     display: block;
     width: 3vh;
   }
@@ -893,11 +953,6 @@
     background-position: bottom right;
   }
 
-  .file_display_wrapper{
-    left: 35vw;
-    top: 45%;
-  }
-
 }
     </style>
     <title>Files</title>
@@ -906,8 +961,12 @@
 <body>
 
       {% if check == '1' %}
-
+      
+      {% if request.user.is_superuser %}
+        <h1 class = "title_dir">All committee directories</h1>
+      {% else %}
         <h1 class = "title_dir">Your committee directories</h1>
+      {% endif %}
         <div class = "committees_directory">
           {% for dir in files %}
             {% if dir in committee_names %}
@@ -928,7 +987,7 @@
 
     {% else %}
 
-
+        
   {% if back_url is not None %}
     <a href = "{{ back_url }}"><button class = "go_back"><img src = "/media/images/go_back.png" class = "go_back_png">
     </button></a>
@@ -972,9 +1031,15 @@
       <div class = "back6"></div>
       <img src="/media/images/show_folder.png" id="showFoldersButton" class="show_folders"></img>
       
-
-
-    <div class = "searchbardiv_files">   
+    <div class = "searchbardiv_files">  
+      <div class="path">
+      {% for key, values in url_dict.items %}
+      <p>&nbsp;&nbsp;</p>
+      <a href="{{files_url}}{{values.0}}">{{ values.1 }}>
+      </a>
+      {% endfor %}
+      </div>
+   
       <div class="number_of_files">
         {% if check2 is not 1 or request.user.is_superuser %}
         <button data-bs-toggle="modal" data-bs-target="#myModal" class = "add_files_button">Add Files</button>

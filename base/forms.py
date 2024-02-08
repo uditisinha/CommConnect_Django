@@ -40,6 +40,11 @@ class CommitteeForm(ModelForm):
         model = Committees
         fields = '__all__'
 
+class CommitteeForm2(ModelForm):
+    class Meta:
+        model = Committees
+        fields = ['description', 'goal', 'objective', 'level', 'convener', 'members', 'staff']
+
 
 class MyUserCreationForm(UserCreationForm):
     class Meta:

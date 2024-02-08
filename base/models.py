@@ -61,9 +61,6 @@ class Folder(models.Model):
 def delete_committee_folder(sender,instance,**kwargs):
     folder_name = instance.name
     path = str(settings.MEDIA_ROOT) +'\\files/'+f'{folder_name}/'
-    folder = Folder.objects.get(parent_directory=path)
-    folder.delete()
-
 
 @receiver(pre_delete, sender=Folder)
 def delete_subfolders(sender, instance, **kwargs):
