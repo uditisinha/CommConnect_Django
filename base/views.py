@@ -20,12 +20,12 @@ import sys
 from django.core.files.storage import FileSystemStorage
 from urllib.parse import unquote
 from django.core.cache import cache
-import docx
-import nltk
-import string
-import spacy
-import fitz  # PyMuPDF
-from collections import Counter
+# import docx
+# import nltk
+# import string
+# import spacy
+# import fitz  # PyMuPDF
+# from collections import Counter
 
 temp = 0
 
@@ -505,7 +505,7 @@ def search_files(request):
     user = request.user
     committees = Committees.objects.filter(members=user) | Committees.objects.filter(convener=user) | Committees.objects.filter(staff=user)
     filtered_files = File.objects.filter(
-        (Q(name__icontains = q) | Q(keywords__icontains = q) | Q(committee__name__icontains = q))
+        (Q(name__icontains = q) | Q(keywords__icontains = q) | Q(committee__name__icontains = q) | Q(file__icontains = q))
     )
     committee_list=[]
     for c in committees:
@@ -631,7 +631,7 @@ def filestructure(request,path=''):
     if q!='':
         current_url = current_url.rsplit("?q",1)[0]
         files_to_access = File.objects.filter(
-        Q(name__icontains = q) | Q(keywords__icontains = q) | Q(committee__name__icontains = q),id__in = files_to_access)
+        Q(name__icontains = q) | Q(keywords__icontains = q) | Q(committee__name__icontains = q) | Q(file__icontains = q),id__in = files_to_access)
     file_paths = []
     file_extensions = []
     i=0
@@ -689,21 +689,21 @@ def filestructure(request,path=''):
             form2 = FileForm(request.POST,request.FILES)
             if form2.is_valid():
                 # Save the form to get the file_instance
-                file_instance = form2.save()
+                form2.save()
+                # file_instance = form2.save()
 
-                # Keep track of the file_instance's ID
-                file_instance_id = file_instance.id
-                print("ID: ",file_instance_id)
-                # Retrieve the file_instance using the ID
-                file_instance = File.objects.get(id=file_instance_id)
+                # # Keep track of the file_instance's ID
+                # file_instance_id = file_instance.id
+                # # Retrieve the file_instance using the ID
+                # file_instance = File.objects.get(id=file_instance_id)
 
-                print("FILE INSTANCE KEYWORDS BEFORE: " + file_instance.keywords)
-                # Now you can access the file object and update its keywords
-                file_instance.keywords += process_file_keywords(file_instance.file)
-                print("FILE INSTANCE KEYWORDS AFTA: " + file_instance.keywords)
+                # print("FILE INSTANCE KEYWORDS BEFORE: " + file_instance.keywords)
+                # # Now you can access the file object and update its keywords
+                # file_instance.keywords += process_file_keywords(file_instance.file)
+                # print("FILE INSTANCE KEYWORDS AFTA: " + file_instance.keywords)
 
-                # Save the instance with updated keywords
-                file_instance.save()
+                # # Save the instance with updated keywords
+                # file_instance.save()
 
                 return redirect(current_url)
             else:
