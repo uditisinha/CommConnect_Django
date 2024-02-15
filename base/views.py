@@ -251,7 +251,7 @@ def edit_committee(request, pk):
             media_root = str(settings.MEDIA_ROOT)
             new_name = form.cleaned_data['name']           
             print( f'{media_root}/files/{old_name}/')
-            matching_files = File.objects.filter(directory__startswith=f'{media_root}\\files/{old_name}/')
+            matching_files = File.objects.filter(directory__startswith=f'{media_root}/files/{old_name}/')
             print("LENGTH OF FILE MATCHES: "+ str(len(matching_files)))
             for f in matching_files:
                 old_path = f.directory
