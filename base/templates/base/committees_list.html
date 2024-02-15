@@ -233,7 +233,7 @@ hr{
     <hr>
     <div class = "topic">
         <h2 style="width: 40%;">Name</h2>
-        <h2>Convener</h2>
+        <h2>Your Position</h2>
         <h2 style="width: 20%;">Level</h2>
     </div>
 
@@ -248,10 +248,22 @@ hr{
                 </div>
 
                 <div class = "convener">
-                    <h5>
-                    <a href = "{% url 'profile' committee.convener.id %}" class = "convener_name">{{committee.convener.pname}}
-                    </a>
-                    </h5>
+                    {% if user in committee.convener.all %}
+                    <h5>Convener</h5>
+                    {% endif %}
+
+                    {% if user in committee.members.all and not user in committee.convener.all and not user in committee.staff.all %}
+                    <h5>Member</h5>
+                    {% endif %}
+
+                    {% if user in committee.staff.all and not user in committee.convener.all and not user in committee.members.all %}
+                    <h5>Staff</h5>
+                    {% endif %}
+
+                    {% if not user in committee.staff.all and not user in committee.convener.all and not user in committee.members.all %}
+                    <h5>Viewer</h5>
+                    {% endif %}
+
                 </div>
                 
                 <div class = "level">

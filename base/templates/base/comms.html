@@ -13,6 +13,16 @@
     margin-left: 10vw;
 }
 
+
+.right_committee a{
+    text-decoration: none;
+    color: #B7202E;
+}
+
+.right_committee a:hover{
+    color: #570a13;
+}
+
 .committee_topic{
     font-size: 6vh;
     margin-top: 20vh;
@@ -252,20 +262,43 @@ hr {
             
             <div class = "right_committee">
                 <h5>Convener</h5>
+                {% for convener in committee.convener.all %}
+                    <p>• <a href = "{% url 'profile' convener.id %}">{{ convener.pname }}</a></p>
+                {% endfor %}
                 <p>{{committee.convener.pname}}</p>
-                <h5>Description</h5>
-                <p>{{committee.description}}</p>
-                <h5>Goals</h5>
-                <p>{{committee.goal}}</p>
-                <h5>Objectives</h5>
-                <p>{{committee.objective}}</p>
+                {% if committee.description %}
+                    <h5>Description</h5>
+                    <p>{{committee.description}}</p>
+                
+                {% elif committee.goals %}
+                    <h5>Goals</h5>
+                    <p>{{committee.goal}}</p>
+                
+                {% elif committee.objective %}
+                    <h5>Objectives</h5>
+                    <p>{{committee.objective}}</p>
+                {% endif %}
+
+                <h5>Members</h5>
+                {% for member in committee.members.all %}
+                    <p>• <a href = "{% url 'profile' member.id %}">{{ member.pname }}</a></p>
+                {% endfor %}
+
+                {% if committee.staff.count > 0 %}
+
+                <h5>Staff</h5>
+                {% for staff in committee.staff.all %}
+                    <p>• <a href = "{% url 'profile' staff.id %}">{{ staff.pname }}</a></p>
+                {% endfor %}
+
+                {% endif %}
             </div>
 
         </div>
     </div>
 
     <div class = "committee_page_buttons">
-    {% if request.user.id == committee.convener.id or request.user.is_superuser %}
+    {% if user in committee.convener.all or request.user.is_superuser %}
     <div class="edit_button">
         <a href="{% url 'edit_committee' committee.id %}">
             <input type="button" value="Edit Details" class="edit_committees">

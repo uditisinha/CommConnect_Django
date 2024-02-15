@@ -36,13 +36,13 @@ class UserList(models.Model):
 class Committees(models.Model):
     
     name = models.CharField(max_length = 200)
-    description = models.TextField()
-    goal = models.TextField()
-    objective = models.TextField()
+    description = models.TextField(null = True, blank=True)
+    goal = models.TextField(null = True, blank=True)
+    objective = models.TextField(null = True, blank=True)
     level = models.CharField(max_length = 200)
     updated = models.DateTimeField(auto_now = True)
     created = models.DateTimeField(auto_now_add = True)
-    convener = models.ForeignKey(User, on_delete = models.SET_NULL, null = True,blank=True)
+    convener = models.ManyToManyField(User,related_name='convener',null=True,blank=True)
     members = models.ManyToManyField(User,related_name='members',null=True,blank=True)
     staff = models.ManyToManyField(User,related_name='staff',null=True,blank=True)
 

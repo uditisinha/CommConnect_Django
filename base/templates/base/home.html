@@ -653,21 +653,21 @@ width: 4vh;
                 <a href="{% url 'committee' committee.id %}"><h1 class="committee_name_slider">{{ committee }}</h1></a>
                 <h4 class = "committee_description_slider">{{committee.description}}</h4>
                 
-              {% if user == committee.convener %}
+              {% if user in committee.convener.all %}
               <div class = "position_home">
                 <h4>Position:</h4>
                 <h1 class = "position_inner">Convener</h1>
               </div>
               {% endif %}
 
-              {% if user in committee.members.all and not user == committee.convener and not user in committee.staff.all %}
+              {% if user in committee.members.all and not user in committee.convener.all and not user in committee.staff.all %}
               <div class = "position_home">
                 <h4>Position:</h4>
                 <h1 class = "position_inner">Member</h1>
               </div>
               {% endif %}
 
-              {% if user in committee.staff.all and not user == committee.convener and not user in committee.members.all %}
+              {% if user in committee.staff.all and not user in committee.convener.all and not user in committee.members.all %}
               <div class = "position_home">
                 <h4>Position:</h4>
                 <h1 class = "position_inner">Staff</h1>

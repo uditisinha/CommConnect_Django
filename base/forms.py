@@ -25,8 +25,9 @@ class CommitteeForm(ModelForm):
         widget=forms.CheckboxSelectMultiple(),
         label='Staff'
     )
-    convener = forms.ModelChoiceField(
+    convener = forms.ModelMultipleChoiceField(
         queryset=User.objects.all().order_by('email'),
+        widget=forms.CheckboxSelectMultiple(),  # Change the widget to Select
         label='Convener'
     )
 
@@ -35,6 +36,7 @@ class CommitteeForm(ModelForm):
         self.fields['members'].label_from_instance = lambda obj: obj.pname + " -- "  + obj.email
         self.fields['staff'].label_from_instance = lambda obj: obj.pname+ " -- " + obj.email
         self.fields['convener'].label_from_instance = lambda obj: obj.pname+ " -- " + obj.email
+        self.fields['staff'].required = False
 
     class Meta:
         model = Committees

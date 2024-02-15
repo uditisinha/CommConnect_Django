@@ -239,7 +239,7 @@ def logoutuser(request):
 def edit_committee(request, pk):
     committee = Committees.objects.get(id = pk)
 
-    if request.user != committee.convener:
+    if request.user not in committee.convener.all():
         if not request.user.is_superuser:
             return HttpResponse('Only the committee\'s convener can edit the committee.')
     
@@ -318,7 +318,7 @@ def registeruser(request):
                     token = user.auth_token
                     user.save()
 
-                    # send_mail_for_registration(email, token)
+                    send_mail_for_registration(email, token)
                     messages.error(request, 'Please click on the link mailed to your email ID to verify account.')
 
                     return redirect('/')
@@ -408,6 +408,7 @@ def profile(request,pk):
 
 @login_required(login_url = 'login')
 def comms(request, pk):
+    url_dict.clear()
     committee = Committees.objects.get(id = pk)
     path = str(settings.MEDIA_ROOT) + '/files/' + committee.name + '/'
     files = []

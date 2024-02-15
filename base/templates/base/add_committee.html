@@ -104,15 +104,19 @@
             {% csrf_token %}
             <div class="field-container">
                 <div>
-                    {{ form.name.label_tag }}
+                    <class ="star" style = "color: red">* </class>{{ form.name.label_tag }}
                     {{ form.name }}
                     <p class="error-message">{{ form.name.errors }}</p>
                 </div>
                 <div>
-                    {{ form.level.label_tag }}
-                    {{ form.level }}
+                    <class ="star" style = "color: red">* </class>{{ form.level.label_tag }}
+                    <select name="{{ form.level.name }}" id="{{ form.level.id }}">
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="Department" {% if form.level.value == "Department" %}selected{% endif %}>Department</option>
+                        <option value="College" {% if form.level.value == "College" %}selected{% endif %}>College</option>
+                    </select>
                     <p class="error-message">{{ form.level.errors }}</p>
-                </div>
+                </div>                
             </div>
             <div class="field-container">
                 <div>
@@ -133,15 +137,18 @@
                     <p class="error-message">{{ form.objective.errors }}</p>
                 </div>
                 <div>
-                    {{ form.convener.label_tag }}
-                    {{ form.convener }}
                     <p class="error-message">{{ form.convener.errors }}</p>
+                    <class ="star" style = "color: red">* </class>{{ form.convener.label_tag }}
+                    <span class="dropdown-arrow" onclick="toggleDropdown3()">&#9662;</span>
+                    <div id="myDropdown3" class="dropdown-content">
+                    {{ form.convener }}
+                    </div>
                 </div>
             </div>
             <div class="field-container">
                 <div>
                     <p class="error-message">{{ form.members.errors }}</p>
-                    {{ form.members.label_tag }}
+                    <class ="star" style = "color: red">* </class>{{ form.members.label_tag }}
                     <span class="dropdown-arrow" onclick="toggleDropdown1()">&#9662;</span>
                     <div id="myDropdown1" class="dropdown-content">
                     {{ form.members }}
@@ -170,6 +177,9 @@
     }
     function toggleDropdown2() {
       var dropdownContent = document.getElementById("myDropdown2");
+      dropdownContent.classList.toggle("show"); }
+    function toggleDropdown3() {
+      var dropdownContent = document.getElementById("myDropdown3");
       dropdownContent.classList.toggle("show"); }
   </script>
 {% endblock %}
