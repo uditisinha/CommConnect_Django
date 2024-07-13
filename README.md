@@ -50,3 +50,4 @@
     <li><strong>class File:</strong> Apart from file name and keywords describing the file, the class contains a field called 'file' which is a FileField, a field called 'directory' which stores the name of the exact directory it is in and a field called 'committee' which is a foreign key referencing the committee it belongs to.</li>
     
 <h3>Main views used:</h3>
+    <li><strong>class User:</strong> Contains details about the users like email, full name, position, department, avatar. It also had the fields 'is_verified', which is used to check whether the user has verified their email, 'auth_token', which is the token that is compared to confirm that the token that user has given is correct or not and 'password_token', which is used in a similar way to 'auth_token' but it is used for changing password.</li>
