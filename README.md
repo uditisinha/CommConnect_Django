@@ -17,25 +17,30 @@
     <li><strong>Folder Creation:</strong> Members can create folders within their committees for better organization.</li>
     <li><strong>File Search:</strong> Comprehensive search functionality with keyword-based retrieval using NLP for efficient file finding.</li>
   </ul>
+  
   <li><strong>Committee Management</strong></li>
   <ul>
     <li><strong>Update Committee Descriptions:</strong> Conveners can modify and update committee information.</li>
     <li><strong>Manage Committee Members:</strong> Conveners can add or remove committee members as needed.</li>
   </ul>
+  
   <li><strong>Administrative Control</strong></li>
   <ul>
     <li><strong>Admin Access:</strong> The HOD can create, edit, and oversee committees and manage platform-wide files and folders.</li>
     <li><strong>Email Address Approval:</strong> The HOD approves email addresses for registration, ensuring controlled access.</li>
   </ul>
+  
   <li><strong>User Profiles</strong></li>
   <ul>
     <li><strong>Profile Customization:</strong> Users can view and modify personal profiles, including providing a brief bio.</li>
     <li><strong>Committee Affiliation:</strong> Profiles display user committee memberships and convenerships.</li>
   </ul>
+  
   <li><strong>User Authentication</strong></li>
   <ul>
     <li><strong>Email Verification:</strong> Secure user registration requiring email verification to ensure authorized access.</li>
   </ul>
+  
   <li><strong>Password Management</strong></li>
   <ul>
     <li><strong>Password Reset:</strong> Users can reset forgotten passwords.</li>
