@@ -62,5 +62,4 @@
 </ul>
 
 <h2>User diagram:</h2>
-<image>![userdiagram](https://github.com/user-attachments/assets/e7723d2f-a024-4958-bd60-a24cc561410a)
-</image>
+<img src="https://github.com/user-attachments/assets/e7723d2f-a024-4958-bd60-a24cc561410a"></img>
