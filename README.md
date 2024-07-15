@@ -49,3 +49,9 @@
     <li><strong>class Committees:</strong> Contains details about the committees like committee's name, level, convener, members, staffs, etc. The convener, members and staffs are foreign keys referencing Users.</li>
     <li><strong>class File:</strong> Apart from file name and keywords describing the file, the class contains a field called 'file' which is a FileField, a field called 'directory' which stores the name of the exact directory it is in and a field called 'committee' which is a foreign key referencing the committee it belongs to.</li>
 </ul>
+
+<h3>Main view used:</h3>
+<ul>
+    <li><strong>loginuser():</strong> User has to input their email and password for logging in. It's checked whether the user has registered or not by fetching the email using 'User.objects.get(email = email)', where User is the model name. If the fetch was unsuccessful, the user is notified that they haven't registered. If it was successful then the 'authenticate()' function is used to check if password is correct. If it is then the user gets logged in, given that they have verified their email.</li>
+  <li><strong>registeruser():</strong> When POST request is sent it is checked whether the form is valid, if it is then the email </li>
+</ul>
