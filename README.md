@@ -15,7 +15,6 @@
     <li><strong>File Access and Download:</strong> Seamless access and download capabilities for all committee files.</li>
     <li><strong>File Upload and Deletion:</strong> Members and conveners can add and remove files within their committees.</li>
     <li><strong>Folder Creation:</strong> Members can create folders within their committees for better organization.</li>
-    <li><strong>File Search:</strong> Comprehensive search functionality with keyword-based retrieval using NLP for efficient file finding.</li>
   </ul><br>
   <li><strong>Committee Management</strong></li>
   <ul>
@@ -45,6 +44,8 @@
 
 <h2>Details:</h2>
 <h3>Main models or tables used:</h3>
+<ul>
     <li><strong>class User:</strong> Contains details about the users like email, full name, position, department, avatar. It also had the fields 'is_verified', which is used to check whether the user has verified their email, 'auth_token', which is the token that is compared to confirm that the token that user has given is correct or not and 'password_token', which is used in a similar way to 'auth_token' but it is used for changing password.</li>
     <li><strong>class Committees:</strong> Contains details about the committees like committee's name, level, convener, members, staffs, etc. The convener, members and staffs are foreign keys referencing Users.</li>
     <li><strong>class File:</strong> Apart from file name and keywords describing the file, the class contains a field called 'file' which is a FileField, a field called 'directory' which stores the name of the exact directory it is in and a field called 'committee' which is a foreign key referencing the committee it belongs to.</li>
+</ul>
