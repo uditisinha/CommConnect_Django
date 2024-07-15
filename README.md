@@ -6,6 +6,7 @@
   <li><strong>Website Development:</strong> Built using Django.</li>
   <li><strong>Database:</strong> SQLite.</li>
   <li><strong>Front-End:</strong> HTML, CSS, JavaScript and bootstrap.</li>
+  <li><strong>Hosting:</strong> PythonAnywhere.</li>
 </ul>
 
 <h2>Key Features of the Website:</h2>
