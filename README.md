@@ -1,4 +1,4 @@
-# CommConnect
+![image](https://github.com/user-attachments/assets/73dc9860-43ed-4e3e-bad2-d949b4e89956)# CommConnect
 <p>CommConnect is a robust and user-friendly system designed for college faculties. It streamlines the retrieval and uploading of committee directories, ensuring efficient and organized management of essential documents.</p>
 
 <h2>Technologies Used:</h2>
@@ -43,7 +43,7 @@
 </ul>
 
 <h2>Details (MVT format):</h2>
-<h3>Main models or tables used:</h3>
+<h3>Models:</h3>
 <ul>
     <li><strong>class User:</strong> Contains details about the users like email, full name, position, department, avatar. It also had the fields 'is_verified', which is used to check whether the user has verified their email, 'auth_token', which is the token that is compared to confirm that the token that user has given is correct or not and 'password_token', which is used in a similar way to 'auth_token' but it is used for changing password.</li>
     <li><strong>class Committees:</strong> Contains details about the committees like committee's name, level, convener, members, staffs, etc. The convener, members and staffs are foreign keys referencing Users.</li>
@@ -51,7 +51,7 @@
     <li><strong>class Folder:</strong> Contains the name of the folder and the parent directory it exists in. By default this parent directory is settings.MEDIA_ROOT/files/</li>
 </ul>
 
-<h3>Main views used:</h3>
+<h3>Views:</h3>
 <ul>
     <li><strong>loginuser():</strong> User has to input their email and password for logging in. It's checked whether the user has registered or not by fetching the email using 'User.objects.get(email = email)', where User is the model name. If the fetch was unsuccessful, the user is notified that they haven't registered. If it was successful then the 'authenticate()' function is used to check if password is correct. If it is then the user gets logged in, given that they have verified their email.</li>
   <li><strong>registeruser():</strong> When POST request is sent it is checked whether the form is valid, if it is then it is checked whether the email has registered already. If the email is new then the user is sent a email verification mail.</li>
@@ -60,3 +60,7 @@
   <li><strong>edit_committee():</strong> This view handles the edit committee functionality. Other than overwriting previous data in the committee instance, it also handles the committee renaming functionality. Once the committee has been renamed, it has to change the parent directory name for all folders in that committee. First, the files File table is filtered using File.objects.filter(directory__startswith=f'{media_root}/files/{old_name}/'), which finds the file instances whose directory field starts with {media_root}/files/{old_name}/. It then iterates through every instance and old name with the new name and the new path is saved for that instance's directory. Then os.replace() is used to replace the older path with the newer path in the local file structure.</li>
   <li><strong>deletefile():</strong> Used for deleting files. When the request is POST, the instance of the File model gets deleted using the delete() function. The @receiver decorator is used which receives the pre_delete signal from class File. The file path is then used to delete the file from the system using os.remove(path).</li>
 </ul>
+
+<h2>User diagram:</h2>
+<image>![userdiagram](https://github.com/user-attachments/assets/e7723d2f-a024-4958-bd60-a24cc561410a)
+</image>
