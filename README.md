@@ -1,5 +1,5 @@
 # CommConnect
-<p>CommConnect is a robust and user-friendly system designed for college faculties. It streamlines the retrieval and uploading of committee directories, ensuring efficient and organized management of essential documents.</p>
+<p>CommConnect is a robust and user-friendly system designed for college faculties. It streamlines the retrieval and uploading of committee directories, ensuring efficient and organized management of essential documents. This system was made as an internship project under esteemed professors of K. J. Somaiya College of Engineering.</p>
 
 <h2>Technologies Used:</h2>
 <ul>
@@ -71,3 +71,6 @@
 
 <h2>User diagram:</h2>
 <img src="https://github.com/user-attachments/assets/e7723d2f-a024-4958-bd60-a24cc561410a"></img>
+
+<h2>Intership Certificate:</h2>
+<img src = "https://github.com/user-attachments/assets/8496e4e4-c409-4361-966b-cc6cdb95460a"></img>
