@@ -43,7 +43,7 @@
 </ul>
 
 <h2>Details (MVT format):</h2>
-<h3>Models:</h3>
+<h3>Models(main ones):</h3>
 <ul>
     <li><strong>class User:</strong> Contains details about the users like email, full name, position, department, avatar. It also had the fields 'is_verified', which is used to check whether the user has verified their email, 'auth_token', which is the token that is compared to confirm that the token that user has given is correct or not and 'password_token', which is used in a similar way to 'auth_token' but it is used for changing password.</li>
     <li><strong>class Committees:</strong> Contains details about the committees like committee's name, level, convener, members, staffs, etc. The convener, members and staffs are foreign keys referencing Users.</li>
@@ -51,7 +51,7 @@
     <li><strong>class Folder:</strong> Contains the name of the folder and the parent directory it exists in. By default this parent directory is settings.MEDIA_ROOT/files/</li>
 </ul>
 
-<h3>Views:</h3>
+<h3>View (main ones):</h3>
 <ul>
     <li><strong>loginuser():</strong> User has to input their email and password for logging in. It's checked whether the user has registered or not by fetching the email using 'User.objects.get(email = email)', where User is the model name. If the fetch was unsuccessful, the user is notified that they haven't registered. If it was successful then the 'authenticate()' function is used to check if password is correct. If it is then the user gets logged in, given that they have verified their email.</li>
   <li><strong>registeruser():</strong> When POST request is sent it is checked whether the form is valid, if it is then it is checked whether the email has registered already. If the email is new then the user is sent a email verification mail.</li>
@@ -59,6 +59,14 @@
     <li><strong>filestructure(): The main job of the filestructure function is to handle the folder and file uploads. If request is POST and request.POST.keys() is first_post, then the user is trying to create a folder in the present directory. If the folder form is valid, directory.parent_directory = os.path.join(directory.parent_directory, directory_name) is used to create the path to the new directory, where directory_name is the name that user inputted for the folder, os.mkdirs(directory.parent_directory) is used to create the directory and the new folder's data is saved in the model. If the request.POST.keys() is second_post, then the user is trying to upload a file to the directory they're in. FileForm(request.POST,request.FILES) is used to take the POST request and request.FILES stores the file. Upon saving of the form, the file is uploaded in file = models.FileField(max_length=20000,upload_to='cat/'). Other than handling POST requests, this function determines the access rights of user based on their status (superuser, convener, members or staff) and data for the UI.</strong> </li>
   <li><strong>edit_committee():</strong> This view handles the edit committee functionality. Other than overwriting previous data in the committee instance, it also handles the committee renaming functionality. Once the committee has been renamed, it has to change the parent directory name for all folders in that committee. First, the files File table is filtered using File.objects.filter(directory__startswith=f'{media_root}/files/{old_name}/'), which finds the file instances whose directory field starts with {media_root}/files/{old_name}/. It then iterates through every instance and old name with the new name and the new path is saved for that instance's directory. Then os.replace() is used to replace the older path with the newer path in the local file structure.</li>
   <li><strong>deletefile():</strong> Used for deleting files. When the request is POST, the instance of the File model gets deleted using the delete() function. The @receiver decorator is used which receives the pre_delete signal from class File. The file path is then used to delete the file from the system using os.remove(path).</li>
+</ul>
+
+<h3>Templates (main ones):</h3>
+<ul>
+  <li><strong>file_structure.html:</strong> This template file contains the whole file structure. All the folders and files inside these folders are displayed with this HTML file.</li>
+  <li><strong>searched_files.html:</strong> This template file contains the files that the user has searched for. If user searches for "file1", all the files with "file1" in their name or keyword are displayed.</li>
+  <li><strong>committees_list.html:</strong> This template file contains a list of all the committees that is there in the system. It also shows their conveners, and user can visit the convener's profile from this page. Upon clicking on any committee, user is redirected to comms.html.</li>
+  <li><strong>comms.html:</strong> In this template more details about the committee, that the user clicked on, is shown along with folders inside that committee that the user can redirect to.</li>
 </ul>
 
 <h2>User diagram:</h2>
