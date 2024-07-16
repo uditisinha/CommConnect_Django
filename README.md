@@ -66,7 +66,7 @@
 <ul>
   <li><strong>file_structure.html:</strong> This template file contains the whole file structure. All the folders and files inside these folders are displayed with this HTML file.</li><br>
   <li><strong>searched_files.html:</strong> This template file contains the files that the user has searched for. If user searches for "file1", all the files with "file1" in their name or keyword are displayed.</li><br>
-  <li><strong>committees_list.html:</strong> This template file contains a list of all the committees that is there in the system. It also shows their conveners, and user can visit the convener's profile from this page. Upon clicking on any committee, user is redirected to comms.html.</li><br>
+  <li><strong>committees_list.html:</strong> This template file contains a list of all the committees that is there in the system. It also shows the user's position in that committee. Upon clicking on any committee, user is redirected to comms.html.</li><br>
   <li><strong>comms.html:</strong> In this template more details about the committee, that the user clicked on, is shown along with folders inside that committee that the user can redirect to.</li>
 </ul>
 
