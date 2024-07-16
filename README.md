@@ -44,7 +44,7 @@
 </ul>
 
 <h2>Working demo of the project:</h2>
-<video href = "https://github.com/user-attachments/assets/57e77e19-dc69-4b52-a485-f1102ef37e9f"></video>
+<video src = "https://github.com/user-attachments/assets/57e77e19-dc69-4b52-a485-f1102ef37e9f"></video>
 
 <h2>Details (MVT format):</h2>
 <h3>Models (main ones):</h3>
