@@ -44,7 +44,7 @@
 </ul>
 
 <h2>Details (MVT format):</h2>
-<h3>Models(main ones):</h3>
+<h3>Models (main ones):</h3>
 <ul>
     <li><strong>class User:</strong> Contains details about the users like email, full name, position, department, avatar. It also had the fields 'is_verified', which is used to check whether the user has verified their email, 'auth_token', which is the token that is compared to confirm that the token that user has given is correct or not and 'password_token', which is used in a similar way to 'auth_token' but it is used for changing password.</li><br>
     <li><strong>class Committees:</strong> Contains details about the committees like committee's name, level, convener, members, staffs, etc. The convener, members and staffs are foreign keys referencing Users.</li><br>
@@ -52,7 +52,7 @@
     <li><strong>class Folder:</strong> Contains the name of the folder and the parent directory it exists in. By default this parent directory is settings.MEDIA_ROOT/files/</li>
 </ul>
 
-<h3>View (main ones):</h3>
+<h3>Views (main ones):</h3>
 <ul>
     <li><strong>loginuser():</strong> User has to input their email and password for logging in. It's checked whether the user has registered or not by fetching the email using 'User.objects.get(email = email)', where User is the model name. If the fetch was unsuccessful, the user is notified that they haven't registered. If it was successful then the 'authenticate()' function is used to check if password is correct. If it is then the user gets logged in, given that they have verified their email.</li><br>
   <li><strong>registeruser():</strong> When POST request is sent it is checked whether the form is valid, if it is then it is checked whether the email has registered already. If the email is new then the user is sent a email verification mail.</li><br>
