@@ -1,7 +1,7 @@
 # CommConnect
 <p>CommConnect is a robust and user-friendly system designed for college faculties. It streamlines the retrieval and uploading of committee directories, ensuring efficient and organized management of essential documents. This system was made as an internship project under esteemed professors of K. J. Somaiya College of Engineering.</p>
 
-<h2>Technologies Used:</h2>
+<h2>Technologies used:</h2>
 <ul>
   <li><strong>Website Development:</strong> Built using Django.</li>
   <li><strong>Database:</strong> SQLite.</li>
@@ -9,7 +9,7 @@
   <li><strong>Hosting:</strong> PythonAnywhere.</li>
 </ul>
 
-<h2>Key Features of the Website:</h2>
+<h2>Key features of the website:</h2>
 <ul>
   <li><strong>File Management</strong></li>
   <ul>
