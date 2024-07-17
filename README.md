@@ -73,6 +73,10 @@
   <li><strong>comms.html:</strong> In this template more details about the committee, that the user clicked on, is shown along with folders inside that committee that the user can redirect to.</li>
 </ul>
 
+<h2>Hosting on PythonAnywhere:</h2>
+<p>The website is hosted on PythonAnywhere at the following link: <a href="http://uditi.pythonanywhere.com">uditi.pythonanywhere.com</a>.</p>
+<p>Our system was initially built on a Windows system, so we manually constructed URLs for file locations upon uploading. However, this feature caused a "Suspicious Path Traversal" error on the hosted website because the Linux server on PythonAnywhere did not allow for manual URL construction. Therefore, we changed the path and ensured there was no manual URL construction.</p>
+
 <h2>User diagram:</h2>
 <img src="https://github.com/user-attachments/assets/e7723d2f-a024-4958-bd60-a24cc561410a"></img>
 
