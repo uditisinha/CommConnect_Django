@@ -80,5 +80,5 @@
 <h2>User diagram:</h2>
 <img src="https://github.com/user-attachments/assets/e7723d2f-a024-4958-bd60-a24cc561410a"></img>
 
-<h2>Intership Certificate:</h2>
+<h2>Internship Certificate:</h2>
 <img src = "https://github.com/user-attachments/assets/8496e4e4-c409-4361-966b-cc6cdb95460a"></img>
